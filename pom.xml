@@ -8,6 +8,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.thrift</groupId>
 			<artifactId>libthrift</artifactId>
 			<version>0.14.1</version>
@@ -62,7 +67,7 @@
 				<configuration>
 					<thriftExecutable>${basedir}/thriftCompiler/thrift-0.14.1.exe</thriftExecutable>
 					<thriftSourceRoot>${basedir}/src/main/resources/thrift/</thriftSourceRoot>
-<!--					<thriftSourceRoot>${basedir}/src/main/resources/thrift/sri06.thrift</thriftSourceRoot>-->
+<!--					<thriftSourceRoot>${basedir}/src/main/resources/thrift/StockExchangeService.thrift</thriftSourceRoot>-->
 <!--					<thriftSourceRoot>${basedir}src/main/gen-java</thriftSourceRoot>-->
 				</configuration>
 				<executions>
