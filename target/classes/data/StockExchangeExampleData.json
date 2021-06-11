@@ -1,0 +1,22 @@
+[
+  {
+    "shortNameIntl": "WSE",
+    "fullNameIntl": "Warsaw Stock Exchange",
+    "shortNameLocal": "GPW",
+    "address": "Książęca 4, 00-498 Warszawa",
+    "coordinates": {
+      "latitude": 52.23006377781272,
+      "longitude": 21.02385107332545
+    }
+  },
+  {
+    "shortNameIntl": "LSE",
+    "fullNameIntl": "London Stock Exchange",
+    "shortNameLocal": "LSE",
+    "address": "10 Paternoster Sq., London EC4M 7LS, United Kingdom",
+    "coordinates": {
+      "latitude": 51.51518023583075,
+      "longitude": -0.09846537335276825
+    }
+  }
+]
