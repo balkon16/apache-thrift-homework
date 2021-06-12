@@ -1,7 +1,9 @@
 package DataInitializer;
 
+import edu.pja.sri.hw06.exchangerateservice.ExchangeRate;
 import edu.pja.sri.hw06.stockexchangeservice.Coordinates;
 import edu.pja.sri.hw06.stockexchangeservice.StockExchange;
+import edu.pja.sri.hw06.stockpriceservice.StockPrice;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -34,14 +36,14 @@ public class DataInitializer {
             for (Object obj : objectsArray) {
                 JSONObject jsonObject = (JSONObject) obj;
                 JSONObject coordinatesObject = (JSONObject) jsonObject.get("coordinates");
-                stockExchanges.add(new StockExchange((String) jsonObject.get("shortNameIntl"),
+                stockExchanges.add(new StockExchange(
+                        (String) jsonObject.get("shortNameIntl"),
                         (String) jsonObject.get("fullNameIntl"),
                         (String) jsonObject.get("shortNameLocal"),
                         (String) jsonObject.get("address"),
                         new Coordinates((double) coordinatesObject.get("latitude"), (double) coordinatesObject.get("longitude"))
                 ));
             }
-            return stockExchanges;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,7 +51,34 @@ public class DataInitializer {
         return stockExchanges;
     }
 
-    public static void main(String[] args) throws IOException, ParseException {
+    public static List<ExchangeRate> initializeExchangeRates(){
+        List<ExchangeRate> exchangeRates = null;
+        try {
+            JSONArray objectsArray = readJSONFile("ExchangeRateExampleData.json");
+            exchangeRates = new ArrayList<ExchangeRate>();
+            for (Object obj: objectsArray){
+                JSONObject jsonObject = (JSONObject) obj;
+                exchangeRates.add(new ExchangeRate(
+                        (String) jsonObject.get("baseCurrency"),
+                        (String) jsonObject.get("quoteCurrency"),
+                        (long) jsonObject.get("multiplier"),
+                        (double) jsonObject.get("rate"),
+                        (long) jsonObject.get("timestamp")
+                        ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return exchangeRates;
+    }
+
+    // TODO: zaimplementować
+    public static List<StockPrice> initializeStockPrice(){
+        return null;
+    }
+
+
+    public static void main(String[] args) {
         List<StockExchange> stockExchanges = initializeStockExchanges();
         System.out.println(stockExchanges);
         List<StockExchange> wse = stockExchanges.stream()

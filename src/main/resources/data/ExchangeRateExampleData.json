@@ -1,0 +1,37 @@
+[
+  {
+    "baseCurrency": "EUR",
+    "quoteCurrency": "PLN",
+    "multiplier": 1,
+    "rate": 4.46,
+    "timestamp": 1622624400
+  },
+  {
+    "baseCurrency": "EUR",
+    "quoteCurrency": "PLN",
+    "multiplier": 1,
+    "rate": 4.48,
+    "timestamp": 1622538000
+  },
+  {
+    "baseCurrency": "EUR",
+    "quoteCurrency": "PLN",
+    "multiplier": 1,
+    "rate": 4.48,
+    "timestamp": 1622451600
+  },
+  {
+    "baseCurrency": "TJS",
+    "quoteCurrency": "USD",
+    "multiplier": 1,
+    "rate": 0.088,
+    "timestamp": 1622710800
+  },
+  {
+    "baseCurrency": "USD",
+    "quoteCurrency": "PLN",
+    "multiplier": 1,
+    "rate": 3.68,
+    "timestamp": 1622712600
+  }
+]
