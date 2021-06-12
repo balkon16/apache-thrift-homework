@@ -12,9 +12,29 @@ public class StockPriceService {
 
   public interface Iface {
 
+    public StockPrice getLatestQuotation(java.lang.String stockExchange, java.lang.String ticker) throws org.apache.thrift.TException;
+
+    public edu.pja.sri.hw06.stockexchangeservice.StatusMessage updateQuotation(StockPrice newStockPrice) throws org.apache.thrift.TException;
+
+    public edu.pja.sri.hw06.stockexchangeservice.StatusMessage addNewQuotation(StockPrice newStockPrice) throws org.apache.thrift.TException;
+
+    public StockPrice getMaxByWindow(long fromTimestamp, long toTimestamp) throws org.apache.thrift.TException;
+
+    public Price getExponentialMovingAverage(java.lang.String stockExchange, java.lang.String ticker, long observationCount) throws org.apache.thrift.TException;
+
   }
 
   public interface AsyncIface {
+
+    public void getLatestQuotation(java.lang.String stockExchange, java.lang.String ticker, org.apache.thrift.async.AsyncMethodCallback<StockPrice> resultHandler) throws org.apache.thrift.TException;
+
+    public void updateQuotation(StockPrice newStockPrice, org.apache.thrift.async.AsyncMethodCallback<edu.pja.sri.hw06.stockexchangeservice.StatusMessage> resultHandler) throws org.apache.thrift.TException;
+
+    public void addNewQuotation(StockPrice newStockPrice, org.apache.thrift.async.AsyncMethodCallback<edu.pja.sri.hw06.stockexchangeservice.StatusMessage> resultHandler) throws org.apache.thrift.TException;
+
+    public void getMaxByWindow(long fromTimestamp, long toTimestamp, org.apache.thrift.async.AsyncMethodCallback<StockPrice> resultHandler) throws org.apache.thrift.TException;
+
+    public void getExponentialMovingAverage(java.lang.String stockExchange, java.lang.String ticker, long observationCount, org.apache.thrift.async.AsyncMethodCallback<Price> resultHandler) throws org.apache.thrift.TException;
 
   }
 
@@ -38,6 +58,125 @@ public class StockPriceService {
       super(iprot, oprot);
     }
 
+    public StockPrice getLatestQuotation(java.lang.String stockExchange, java.lang.String ticker) throws org.apache.thrift.TException
+    {
+      send_getLatestQuotation(stockExchange, ticker);
+      return recv_getLatestQuotation();
+    }
+
+    public void send_getLatestQuotation(java.lang.String stockExchange, java.lang.String ticker) throws org.apache.thrift.TException
+    {
+      getLatestQuotation_args args = new getLatestQuotation_args();
+      args.setStockExchange(stockExchange);
+      args.setTicker(ticker);
+      sendBase("getLatestQuotation", args);
+    }
+
+    public StockPrice recv_getLatestQuotation() throws org.apache.thrift.TException
+    {
+      getLatestQuotation_result result = new getLatestQuotation_result();
+      receiveBase(result, "getLatestQuotation");
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "getLatestQuotation failed: unknown result");
+    }
+
+    public edu.pja.sri.hw06.stockexchangeservice.StatusMessage updateQuotation(StockPrice newStockPrice) throws org.apache.thrift.TException
+    {
+      send_updateQuotation(newStockPrice);
+      return recv_updateQuotation();
+    }
+
+    public void send_updateQuotation(StockPrice newStockPrice) throws org.apache.thrift.TException
+    {
+      updateQuotation_args args = new updateQuotation_args();
+      args.setNewStockPrice(newStockPrice);
+      sendBase("updateQuotation", args);
+    }
+
+    public edu.pja.sri.hw06.stockexchangeservice.StatusMessage recv_updateQuotation() throws org.apache.thrift.TException
+    {
+      updateQuotation_result result = new updateQuotation_result();
+      receiveBase(result, "updateQuotation");
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "updateQuotation failed: unknown result");
+    }
+
+    public edu.pja.sri.hw06.stockexchangeservice.StatusMessage addNewQuotation(StockPrice newStockPrice) throws org.apache.thrift.TException
+    {
+      send_addNewQuotation(newStockPrice);
+      return recv_addNewQuotation();
+    }
+
+    public void send_addNewQuotation(StockPrice newStockPrice) throws org.apache.thrift.TException
+    {
+      addNewQuotation_args args = new addNewQuotation_args();
+      args.setNewStockPrice(newStockPrice);
+      sendBase("addNewQuotation", args);
+    }
+
+    public edu.pja.sri.hw06.stockexchangeservice.StatusMessage recv_addNewQuotation() throws org.apache.thrift.TException
+    {
+      addNewQuotation_result result = new addNewQuotation_result();
+      receiveBase(result, "addNewQuotation");
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "addNewQuotation failed: unknown result");
+    }
+
+    public StockPrice getMaxByWindow(long fromTimestamp, long toTimestamp) throws org.apache.thrift.TException
+    {
+      send_getMaxByWindow(fromTimestamp, toTimestamp);
+      return recv_getMaxByWindow();
+    }
+
+    public void send_getMaxByWindow(long fromTimestamp, long toTimestamp) throws org.apache.thrift.TException
+    {
+      getMaxByWindow_args args = new getMaxByWindow_args();
+      args.setFromTimestamp(fromTimestamp);
+      args.setToTimestamp(toTimestamp);
+      sendBase("getMaxByWindow", args);
+    }
+
+    public StockPrice recv_getMaxByWindow() throws org.apache.thrift.TException
+    {
+      getMaxByWindow_result result = new getMaxByWindow_result();
+      receiveBase(result, "getMaxByWindow");
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "getMaxByWindow failed: unknown result");
+    }
+
+    public Price getExponentialMovingAverage(java.lang.String stockExchange, java.lang.String ticker, long observationCount) throws org.apache.thrift.TException
+    {
+      send_getExponentialMovingAverage(stockExchange, ticker, observationCount);
+      return recv_getExponentialMovingAverage();
+    }
+
+    public void send_getExponentialMovingAverage(java.lang.String stockExchange, java.lang.String ticker, long observationCount) throws org.apache.thrift.TException
+    {
+      getExponentialMovingAverage_args args = new getExponentialMovingAverage_args();
+      args.setStockExchange(stockExchange);
+      args.setTicker(ticker);
+      args.setObservationCount(observationCount);
+      sendBase("getExponentialMovingAverage", args);
+    }
+
+    public Price recv_getExponentialMovingAverage() throws org.apache.thrift.TException
+    {
+      getExponentialMovingAverage_result result = new getExponentialMovingAverage_result();
+      receiveBase(result, "getExponentialMovingAverage");
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "getExponentialMovingAverage failed: unknown result");
+    }
+
   }
   public static class AsyncClient extends org.apache.thrift.async.TAsyncClient implements AsyncIface {
     public static class Factory implements org.apache.thrift.async.TAsyncClientFactory<AsyncClient> {
@@ -56,6 +195,178 @@ public class StockPriceService {
       super(protocolFactory, clientManager, transport);
     }
 
+    public void getLatestQuotation(java.lang.String stockExchange, java.lang.String ticker, org.apache.thrift.async.AsyncMethodCallback<StockPrice> resultHandler) throws org.apache.thrift.TException {
+      checkReady();
+      getLatestQuotation_call method_call = new getLatestQuotation_call(stockExchange, ticker, resultHandler, this, ___protocolFactory, ___transport);
+      this.___currentMethod = method_call;
+      ___manager.call(method_call);
+    }
+
+    public static class getLatestQuotation_call extends org.apache.thrift.async.TAsyncMethodCall<StockPrice> {
+      private java.lang.String stockExchange;
+      private java.lang.String ticker;
+      public getLatestQuotation_call(java.lang.String stockExchange, java.lang.String ticker, org.apache.thrift.async.AsyncMethodCallback<StockPrice> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.stockExchange = stockExchange;
+        this.ticker = ticker;
+      }
+
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("getLatestQuotation", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        getLatestQuotation_args args = new getLatestQuotation_args();
+        args.setStockExchange(stockExchange);
+        args.setTicker(ticker);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public StockPrice getResult() throws org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+          throw new java.lang.IllegalStateException("Method call not finished!");
+        }
+        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_getLatestQuotation();
+      }
+    }
+
+    public void updateQuotation(StockPrice newStockPrice, org.apache.thrift.async.AsyncMethodCallback<edu.pja.sri.hw06.stockexchangeservice.StatusMessage> resultHandler) throws org.apache.thrift.TException {
+      checkReady();
+      updateQuotation_call method_call = new updateQuotation_call(newStockPrice, resultHandler, this, ___protocolFactory, ___transport);
+      this.___currentMethod = method_call;
+      ___manager.call(method_call);
+    }
+
+    public static class updateQuotation_call extends org.apache.thrift.async.TAsyncMethodCall<edu.pja.sri.hw06.stockexchangeservice.StatusMessage> {
+      private StockPrice newStockPrice;
+      public updateQuotation_call(StockPrice newStockPrice, org.apache.thrift.async.AsyncMethodCallback<edu.pja.sri.hw06.stockexchangeservice.StatusMessage> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.newStockPrice = newStockPrice;
+      }
+
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("updateQuotation", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        updateQuotation_args args = new updateQuotation_args();
+        args.setNewStockPrice(newStockPrice);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public edu.pja.sri.hw06.stockexchangeservice.StatusMessage getResult() throws org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+          throw new java.lang.IllegalStateException("Method call not finished!");
+        }
+        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_updateQuotation();
+      }
+    }
+
+    public void addNewQuotation(StockPrice newStockPrice, org.apache.thrift.async.AsyncMethodCallback<edu.pja.sri.hw06.stockexchangeservice.StatusMessage> resultHandler) throws org.apache.thrift.TException {
+      checkReady();
+      addNewQuotation_call method_call = new addNewQuotation_call(newStockPrice, resultHandler, this, ___protocolFactory, ___transport);
+      this.___currentMethod = method_call;
+      ___manager.call(method_call);
+    }
+
+    public static class addNewQuotation_call extends org.apache.thrift.async.TAsyncMethodCall<edu.pja.sri.hw06.stockexchangeservice.StatusMessage> {
+      private StockPrice newStockPrice;
+      public addNewQuotation_call(StockPrice newStockPrice, org.apache.thrift.async.AsyncMethodCallback<edu.pja.sri.hw06.stockexchangeservice.StatusMessage> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.newStockPrice = newStockPrice;
+      }
+
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("addNewQuotation", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        addNewQuotation_args args = new addNewQuotation_args();
+        args.setNewStockPrice(newStockPrice);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public edu.pja.sri.hw06.stockexchangeservice.StatusMessage getResult() throws org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+          throw new java.lang.IllegalStateException("Method call not finished!");
+        }
+        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_addNewQuotation();
+      }
+    }
+
+    public void getMaxByWindow(long fromTimestamp, long toTimestamp, org.apache.thrift.async.AsyncMethodCallback<StockPrice> resultHandler) throws org.apache.thrift.TException {
+      checkReady();
+      getMaxByWindow_call method_call = new getMaxByWindow_call(fromTimestamp, toTimestamp, resultHandler, this, ___protocolFactory, ___transport);
+      this.___currentMethod = method_call;
+      ___manager.call(method_call);
+    }
+
+    public static class getMaxByWindow_call extends org.apache.thrift.async.TAsyncMethodCall<StockPrice> {
+      private long fromTimestamp;
+      private long toTimestamp;
+      public getMaxByWindow_call(long fromTimestamp, long toTimestamp, org.apache.thrift.async.AsyncMethodCallback<StockPrice> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.fromTimestamp = fromTimestamp;
+        this.toTimestamp = toTimestamp;
+      }
+
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("getMaxByWindow", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        getMaxByWindow_args args = new getMaxByWindow_args();
+        args.setFromTimestamp(fromTimestamp);
+        args.setToTimestamp(toTimestamp);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public StockPrice getResult() throws org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+          throw new java.lang.IllegalStateException("Method call not finished!");
+        }
+        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_getMaxByWindow();
+      }
+    }
+
+    public void getExponentialMovingAverage(java.lang.String stockExchange, java.lang.String ticker, long observationCount, org.apache.thrift.async.AsyncMethodCallback<Price> resultHandler) throws org.apache.thrift.TException {
+      checkReady();
+      getExponentialMovingAverage_call method_call = new getExponentialMovingAverage_call(stockExchange, ticker, observationCount, resultHandler, this, ___protocolFactory, ___transport);
+      this.___currentMethod = method_call;
+      ___manager.call(method_call);
+    }
+
+    public static class getExponentialMovingAverage_call extends org.apache.thrift.async.TAsyncMethodCall<Price> {
+      private java.lang.String stockExchange;
+      private java.lang.String ticker;
+      private long observationCount;
+      public getExponentialMovingAverage_call(java.lang.String stockExchange, java.lang.String ticker, long observationCount, org.apache.thrift.async.AsyncMethodCallback<Price> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.stockExchange = stockExchange;
+        this.ticker = ticker;
+        this.observationCount = observationCount;
+      }
+
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("getExponentialMovingAverage", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        getExponentialMovingAverage_args args = new getExponentialMovingAverage_args();
+        args.setStockExchange(stockExchange);
+        args.setTicker(ticker);
+        args.setObservationCount(observationCount);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public Price getResult() throws org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+          throw new java.lang.IllegalStateException("Method call not finished!");
+        }
+        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_getExponentialMovingAverage();
+      }
+    }
+
   }
 
   public static class Processor<I extends Iface> extends org.apache.thrift.TBaseProcessor<I> implements org.apache.thrift.TProcessor {
@@ -69,7 +380,137 @@ public class StockPriceService {
     }
 
     private static <I extends Iface> java.util.Map<java.lang.String,  org.apache.thrift.ProcessFunction<I, ? extends org.apache.thrift.TBase>> getProcessMap(java.util.Map<java.lang.String, org.apache.thrift.ProcessFunction<I, ? extends  org.apache.thrift.TBase>> processMap) {
+      processMap.put("getLatestQuotation", new getLatestQuotation());
+      processMap.put("updateQuotation", new updateQuotation());
+      processMap.put("addNewQuotation", new addNewQuotation());
+      processMap.put("getMaxByWindow", new getMaxByWindow());
+      processMap.put("getExponentialMovingAverage", new getExponentialMovingAverage());
       return processMap;
+    }
+
+    public static class getLatestQuotation<I extends Iface> extends org.apache.thrift.ProcessFunction<I, getLatestQuotation_args> {
+      public getLatestQuotation() {
+        super("getLatestQuotation");
+      }
+
+      public getLatestQuotation_args getEmptyArgsInstance() {
+        return new getLatestQuotation_args();
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      @Override
+      protected boolean rethrowUnhandledExceptions() {
+        return false;
+      }
+
+      public getLatestQuotation_result getResult(I iface, getLatestQuotation_args args) throws org.apache.thrift.TException {
+        getLatestQuotation_result result = new getLatestQuotation_result();
+        result.success = iface.getLatestQuotation(args.stockExchange, args.ticker);
+        return result;
+      }
+    }
+
+    public static class updateQuotation<I extends Iface> extends org.apache.thrift.ProcessFunction<I, updateQuotation_args> {
+      public updateQuotation() {
+        super("updateQuotation");
+      }
+
+      public updateQuotation_args getEmptyArgsInstance() {
+        return new updateQuotation_args();
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      @Override
+      protected boolean rethrowUnhandledExceptions() {
+        return false;
+      }
+
+      public updateQuotation_result getResult(I iface, updateQuotation_args args) throws org.apache.thrift.TException {
+        updateQuotation_result result = new updateQuotation_result();
+        result.success = iface.updateQuotation(args.newStockPrice);
+        return result;
+      }
+    }
+
+    public static class addNewQuotation<I extends Iface> extends org.apache.thrift.ProcessFunction<I, addNewQuotation_args> {
+      public addNewQuotation() {
+        super("addNewQuotation");
+      }
+
+      public addNewQuotation_args getEmptyArgsInstance() {
+        return new addNewQuotation_args();
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      @Override
+      protected boolean rethrowUnhandledExceptions() {
+        return false;
+      }
+
+      public addNewQuotation_result getResult(I iface, addNewQuotation_args args) throws org.apache.thrift.TException {
+        addNewQuotation_result result = new addNewQuotation_result();
+        result.success = iface.addNewQuotation(args.newStockPrice);
+        return result;
+      }
+    }
+
+    public static class getMaxByWindow<I extends Iface> extends org.apache.thrift.ProcessFunction<I, getMaxByWindow_args> {
+      public getMaxByWindow() {
+        super("getMaxByWindow");
+      }
+
+      public getMaxByWindow_args getEmptyArgsInstance() {
+        return new getMaxByWindow_args();
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      @Override
+      protected boolean rethrowUnhandledExceptions() {
+        return false;
+      }
+
+      public getMaxByWindow_result getResult(I iface, getMaxByWindow_args args) throws org.apache.thrift.TException {
+        getMaxByWindow_result result = new getMaxByWindow_result();
+        result.success = iface.getMaxByWindow(args.fromTimestamp, args.toTimestamp);
+        return result;
+      }
+    }
+
+    public static class getExponentialMovingAverage<I extends Iface> extends org.apache.thrift.ProcessFunction<I, getExponentialMovingAverage_args> {
+      public getExponentialMovingAverage() {
+        super("getExponentialMovingAverage");
+      }
+
+      public getExponentialMovingAverage_args getEmptyArgsInstance() {
+        return new getExponentialMovingAverage_args();
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      @Override
+      protected boolean rethrowUnhandledExceptions() {
+        return false;
+      }
+
+      public getExponentialMovingAverage_result getResult(I iface, getExponentialMovingAverage_args args) throws org.apache.thrift.TException {
+        getExponentialMovingAverage_result result = new getExponentialMovingAverage_result();
+        result.success = iface.getExponentialMovingAverage(args.stockExchange, args.ticker, args.observationCount);
+        return result;
+      }
     }
 
   }
@@ -85,9 +526,4405 @@ public class StockPriceService {
     }
 
     private static <I extends AsyncIface> java.util.Map<java.lang.String,  org.apache.thrift.AsyncProcessFunction<I, ? extends  org.apache.thrift.TBase,?>> getProcessMap(java.util.Map<java.lang.String,  org.apache.thrift.AsyncProcessFunction<I, ? extends  org.apache.thrift.TBase, ?>> processMap) {
+      processMap.put("getLatestQuotation", new getLatestQuotation());
+      processMap.put("updateQuotation", new updateQuotation());
+      processMap.put("addNewQuotation", new addNewQuotation());
+      processMap.put("getMaxByWindow", new getMaxByWindow());
+      processMap.put("getExponentialMovingAverage", new getExponentialMovingAverage());
       return processMap;
     }
 
+    public static class getLatestQuotation<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, getLatestQuotation_args, StockPrice> {
+      public getLatestQuotation() {
+        super("getLatestQuotation");
+      }
+
+      public getLatestQuotation_args getEmptyArgsInstance() {
+        return new getLatestQuotation_args();
+      }
+
+      public org.apache.thrift.async.AsyncMethodCallback<StockPrice> getResultHandler(final org.apache.thrift.server.AbstractNonblockingServer.AsyncFrameBuffer fb, final int seqid) {
+        final org.apache.thrift.AsyncProcessFunction fcall = this;
+        return new org.apache.thrift.async.AsyncMethodCallback<StockPrice>() { 
+          public void onComplete(StockPrice o) {
+            getLatestQuotation_result result = new getLatestQuotation_result();
+            result.success = o;
+            try {
+              fcall.sendResponse(fb, result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
+            } catch (org.apache.thrift.transport.TTransportException e) {
+              _LOGGER.error("TTransportException writing to internal frame buffer", e);
+              fb.close();
+            } catch (java.lang.Exception e) {
+              _LOGGER.error("Exception writing to internal frame buffer", e);
+              onError(e);
+            }
+          }
+          public void onError(java.lang.Exception e) {
+            byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
+            org.apache.thrift.TSerializable msg;
+            getLatestQuotation_result result = new getLatestQuotation_result();
+            if (e instanceof org.apache.thrift.transport.TTransportException) {
+              _LOGGER.error("TTransportException inside handler", e);
+              fb.close();
+              return;
+            } else if (e instanceof org.apache.thrift.TApplicationException) {
+              _LOGGER.error("TApplicationException inside handler", e);
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = (org.apache.thrift.TApplicationException)e;
+            } else {
+              _LOGGER.error("Exception inside handler", e);
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
+            }
+            try {
+              fcall.sendResponse(fb,msg,msgType,seqid);
+            } catch (java.lang.Exception ex) {
+              _LOGGER.error("Exception writing to internal frame buffer", ex);
+              fb.close();
+            }
+          }
+        };
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public void start(I iface, getLatestQuotation_args args, org.apache.thrift.async.AsyncMethodCallback<StockPrice> resultHandler) throws org.apache.thrift.TException {
+        iface.getLatestQuotation(args.stockExchange, args.ticker,resultHandler);
+      }
+    }
+
+    public static class updateQuotation<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, updateQuotation_args, edu.pja.sri.hw06.stockexchangeservice.StatusMessage> {
+      public updateQuotation() {
+        super("updateQuotation");
+      }
+
+      public updateQuotation_args getEmptyArgsInstance() {
+        return new updateQuotation_args();
+      }
+
+      public org.apache.thrift.async.AsyncMethodCallback<edu.pja.sri.hw06.stockexchangeservice.StatusMessage> getResultHandler(final org.apache.thrift.server.AbstractNonblockingServer.AsyncFrameBuffer fb, final int seqid) {
+        final org.apache.thrift.AsyncProcessFunction fcall = this;
+        return new org.apache.thrift.async.AsyncMethodCallback<edu.pja.sri.hw06.stockexchangeservice.StatusMessage>() { 
+          public void onComplete(edu.pja.sri.hw06.stockexchangeservice.StatusMessage o) {
+            updateQuotation_result result = new updateQuotation_result();
+            result.success = o;
+            try {
+              fcall.sendResponse(fb, result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
+            } catch (org.apache.thrift.transport.TTransportException e) {
+              _LOGGER.error("TTransportException writing to internal frame buffer", e);
+              fb.close();
+            } catch (java.lang.Exception e) {
+              _LOGGER.error("Exception writing to internal frame buffer", e);
+              onError(e);
+            }
+          }
+          public void onError(java.lang.Exception e) {
+            byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
+            org.apache.thrift.TSerializable msg;
+            updateQuotation_result result = new updateQuotation_result();
+            if (e instanceof org.apache.thrift.transport.TTransportException) {
+              _LOGGER.error("TTransportException inside handler", e);
+              fb.close();
+              return;
+            } else if (e instanceof org.apache.thrift.TApplicationException) {
+              _LOGGER.error("TApplicationException inside handler", e);
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = (org.apache.thrift.TApplicationException)e;
+            } else {
+              _LOGGER.error("Exception inside handler", e);
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
+            }
+            try {
+              fcall.sendResponse(fb,msg,msgType,seqid);
+            } catch (java.lang.Exception ex) {
+              _LOGGER.error("Exception writing to internal frame buffer", ex);
+              fb.close();
+            }
+          }
+        };
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public void start(I iface, updateQuotation_args args, org.apache.thrift.async.AsyncMethodCallback<edu.pja.sri.hw06.stockexchangeservice.StatusMessage> resultHandler) throws org.apache.thrift.TException {
+        iface.updateQuotation(args.newStockPrice,resultHandler);
+      }
+    }
+
+    public static class addNewQuotation<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, addNewQuotation_args, edu.pja.sri.hw06.stockexchangeservice.StatusMessage> {
+      public addNewQuotation() {
+        super("addNewQuotation");
+      }
+
+      public addNewQuotation_args getEmptyArgsInstance() {
+        return new addNewQuotation_args();
+      }
+
+      public org.apache.thrift.async.AsyncMethodCallback<edu.pja.sri.hw06.stockexchangeservice.StatusMessage> getResultHandler(final org.apache.thrift.server.AbstractNonblockingServer.AsyncFrameBuffer fb, final int seqid) {
+        final org.apache.thrift.AsyncProcessFunction fcall = this;
+        return new org.apache.thrift.async.AsyncMethodCallback<edu.pja.sri.hw06.stockexchangeservice.StatusMessage>() { 
+          public void onComplete(edu.pja.sri.hw06.stockexchangeservice.StatusMessage o) {
+            addNewQuotation_result result = new addNewQuotation_result();
+            result.success = o;
+            try {
+              fcall.sendResponse(fb, result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
+            } catch (org.apache.thrift.transport.TTransportException e) {
+              _LOGGER.error("TTransportException writing to internal frame buffer", e);
+              fb.close();
+            } catch (java.lang.Exception e) {
+              _LOGGER.error("Exception writing to internal frame buffer", e);
+              onError(e);
+            }
+          }
+          public void onError(java.lang.Exception e) {
+            byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
+            org.apache.thrift.TSerializable msg;
+            addNewQuotation_result result = new addNewQuotation_result();
+            if (e instanceof org.apache.thrift.transport.TTransportException) {
+              _LOGGER.error("TTransportException inside handler", e);
+              fb.close();
+              return;
+            } else if (e instanceof org.apache.thrift.TApplicationException) {
+              _LOGGER.error("TApplicationException inside handler", e);
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = (org.apache.thrift.TApplicationException)e;
+            } else {
+              _LOGGER.error("Exception inside handler", e);
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
+            }
+            try {
+              fcall.sendResponse(fb,msg,msgType,seqid);
+            } catch (java.lang.Exception ex) {
+              _LOGGER.error("Exception writing to internal frame buffer", ex);
+              fb.close();
+            }
+          }
+        };
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public void start(I iface, addNewQuotation_args args, org.apache.thrift.async.AsyncMethodCallback<edu.pja.sri.hw06.stockexchangeservice.StatusMessage> resultHandler) throws org.apache.thrift.TException {
+        iface.addNewQuotation(args.newStockPrice,resultHandler);
+      }
+    }
+
+    public static class getMaxByWindow<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, getMaxByWindow_args, StockPrice> {
+      public getMaxByWindow() {
+        super("getMaxByWindow");
+      }
+
+      public getMaxByWindow_args getEmptyArgsInstance() {
+        return new getMaxByWindow_args();
+      }
+
+      public org.apache.thrift.async.AsyncMethodCallback<StockPrice> getResultHandler(final org.apache.thrift.server.AbstractNonblockingServer.AsyncFrameBuffer fb, final int seqid) {
+        final org.apache.thrift.AsyncProcessFunction fcall = this;
+        return new org.apache.thrift.async.AsyncMethodCallback<StockPrice>() { 
+          public void onComplete(StockPrice o) {
+            getMaxByWindow_result result = new getMaxByWindow_result();
+            result.success = o;
+            try {
+              fcall.sendResponse(fb, result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
+            } catch (org.apache.thrift.transport.TTransportException e) {
+              _LOGGER.error("TTransportException writing to internal frame buffer", e);
+              fb.close();
+            } catch (java.lang.Exception e) {
+              _LOGGER.error("Exception writing to internal frame buffer", e);
+              onError(e);
+            }
+          }
+          public void onError(java.lang.Exception e) {
+            byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
+            org.apache.thrift.TSerializable msg;
+            getMaxByWindow_result result = new getMaxByWindow_result();
+            if (e instanceof org.apache.thrift.transport.TTransportException) {
+              _LOGGER.error("TTransportException inside handler", e);
+              fb.close();
+              return;
+            } else if (e instanceof org.apache.thrift.TApplicationException) {
+              _LOGGER.error("TApplicationException inside handler", e);
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = (org.apache.thrift.TApplicationException)e;
+            } else {
+              _LOGGER.error("Exception inside handler", e);
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
+            }
+            try {
+              fcall.sendResponse(fb,msg,msgType,seqid);
+            } catch (java.lang.Exception ex) {
+              _LOGGER.error("Exception writing to internal frame buffer", ex);
+              fb.close();
+            }
+          }
+        };
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public void start(I iface, getMaxByWindow_args args, org.apache.thrift.async.AsyncMethodCallback<StockPrice> resultHandler) throws org.apache.thrift.TException {
+        iface.getMaxByWindow(args.fromTimestamp, args.toTimestamp,resultHandler);
+      }
+    }
+
+    public static class getExponentialMovingAverage<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, getExponentialMovingAverage_args, Price> {
+      public getExponentialMovingAverage() {
+        super("getExponentialMovingAverage");
+      }
+
+      public getExponentialMovingAverage_args getEmptyArgsInstance() {
+        return new getExponentialMovingAverage_args();
+      }
+
+      public org.apache.thrift.async.AsyncMethodCallback<Price> getResultHandler(final org.apache.thrift.server.AbstractNonblockingServer.AsyncFrameBuffer fb, final int seqid) {
+        final org.apache.thrift.AsyncProcessFunction fcall = this;
+        return new org.apache.thrift.async.AsyncMethodCallback<Price>() { 
+          public void onComplete(Price o) {
+            getExponentialMovingAverage_result result = new getExponentialMovingAverage_result();
+            result.success = o;
+            try {
+              fcall.sendResponse(fb, result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
+            } catch (org.apache.thrift.transport.TTransportException e) {
+              _LOGGER.error("TTransportException writing to internal frame buffer", e);
+              fb.close();
+            } catch (java.lang.Exception e) {
+              _LOGGER.error("Exception writing to internal frame buffer", e);
+              onError(e);
+            }
+          }
+          public void onError(java.lang.Exception e) {
+            byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
+            org.apache.thrift.TSerializable msg;
+            getExponentialMovingAverage_result result = new getExponentialMovingAverage_result();
+            if (e instanceof org.apache.thrift.transport.TTransportException) {
+              _LOGGER.error("TTransportException inside handler", e);
+              fb.close();
+              return;
+            } else if (e instanceof org.apache.thrift.TApplicationException) {
+              _LOGGER.error("TApplicationException inside handler", e);
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = (org.apache.thrift.TApplicationException)e;
+            } else {
+              _LOGGER.error("Exception inside handler", e);
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
+            }
+            try {
+              fcall.sendResponse(fb,msg,msgType,seqid);
+            } catch (java.lang.Exception ex) {
+              _LOGGER.error("Exception writing to internal frame buffer", ex);
+              fb.close();
+            }
+          }
+        };
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public void start(I iface, getExponentialMovingAverage_args args, org.apache.thrift.async.AsyncMethodCallback<Price> resultHandler) throws org.apache.thrift.TException {
+        iface.getExponentialMovingAverage(args.stockExchange, args.ticker, args.observationCount,resultHandler);
+      }
+    }
+
+  }
+
+  public static class getLatestQuotation_args implements org.apache.thrift.TBase<getLatestQuotation_args, getLatestQuotation_args._Fields>, java.io.Serializable, Cloneable, Comparable<getLatestQuotation_args>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("getLatestQuotation_args");
+
+    private static final org.apache.thrift.protocol.TField STOCK_EXCHANGE_FIELD_DESC = new org.apache.thrift.protocol.TField("stockExchange", org.apache.thrift.protocol.TType.STRING, (short)1);
+    private static final org.apache.thrift.protocol.TField TICKER_FIELD_DESC = new org.apache.thrift.protocol.TField("ticker", org.apache.thrift.protocol.TType.STRING, (short)2);
+
+    private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new getLatestQuotation_argsStandardSchemeFactory();
+    private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new getLatestQuotation_argsTupleSchemeFactory();
+
+    public @org.apache.thrift.annotation.Nullable java.lang.String stockExchange; // required
+    public @org.apache.thrift.annotation.Nullable java.lang.String ticker; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      STOCK_EXCHANGE((short)1, "stockExchange"),
+      TICKER((short)2, "ticker");
+
+      private static final java.util.Map<java.lang.String, _Fields> byName = new java.util.HashMap<java.lang.String, _Fields>();
+
+      static {
+        for (_Fields field : java.util.EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 1: // STOCK_EXCHANGE
+            return STOCK_EXCHANGE;
+          case 2: // TICKER
+            return TICKER;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new java.lang.IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByName(java.lang.String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final java.lang.String _fieldName;
+
+      _Fields(short thriftId, java.lang.String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public java.lang.String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.STOCK_EXCHANGE, new org.apache.thrift.meta_data.FieldMetaData("stockExchange", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      tmpMap.put(_Fields.TICKER, new org.apache.thrift.meta_data.FieldMetaData("ticker", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(getLatestQuotation_args.class, metaDataMap);
+    }
+
+    public getLatestQuotation_args() {
+    }
+
+    public getLatestQuotation_args(
+      java.lang.String stockExchange,
+      java.lang.String ticker)
+    {
+      this();
+      this.stockExchange = stockExchange;
+      this.ticker = ticker;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public getLatestQuotation_args(getLatestQuotation_args other) {
+      if (other.isSetStockExchange()) {
+        this.stockExchange = other.stockExchange;
+      }
+      if (other.isSetTicker()) {
+        this.ticker = other.ticker;
+      }
+    }
+
+    public getLatestQuotation_args deepCopy() {
+      return new getLatestQuotation_args(this);
+    }
+
+    @Override
+    public void clear() {
+      this.stockExchange = null;
+      this.ticker = null;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public java.lang.String getStockExchange() {
+      return this.stockExchange;
+    }
+
+    public getLatestQuotation_args setStockExchange(@org.apache.thrift.annotation.Nullable java.lang.String stockExchange) {
+      this.stockExchange = stockExchange;
+      return this;
+    }
+
+    public void unsetStockExchange() {
+      this.stockExchange = null;
+    }
+
+    /** Returns true if field stockExchange is set (has been assigned a value) and false otherwise */
+    public boolean isSetStockExchange() {
+      return this.stockExchange != null;
+    }
+
+    public void setStockExchangeIsSet(boolean value) {
+      if (!value) {
+        this.stockExchange = null;
+      }
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public java.lang.String getTicker() {
+      return this.ticker;
+    }
+
+    public getLatestQuotation_args setTicker(@org.apache.thrift.annotation.Nullable java.lang.String ticker) {
+      this.ticker = ticker;
+      return this;
+    }
+
+    public void unsetTicker() {
+      this.ticker = null;
+    }
+
+    /** Returns true if field ticker is set (has been assigned a value) and false otherwise */
+    public boolean isSetTicker() {
+      return this.ticker != null;
+    }
+
+    public void setTickerIsSet(boolean value) {
+      if (!value) {
+        this.ticker = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, @org.apache.thrift.annotation.Nullable java.lang.Object value) {
+      switch (field) {
+      case STOCK_EXCHANGE:
+        if (value == null) {
+          unsetStockExchange();
+        } else {
+          setStockExchange((java.lang.String)value);
+        }
+        break;
+
+      case TICKER:
+        if (value == null) {
+          unsetTicker();
+        } else {
+          setTicker((java.lang.String)value);
+        }
+        break;
+
+      }
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public java.lang.Object getFieldValue(_Fields field) {
+      switch (field) {
+      case STOCK_EXCHANGE:
+        return getStockExchange();
+
+      case TICKER:
+        return getTicker();
+
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new java.lang.IllegalArgumentException();
+      }
+
+      switch (field) {
+      case STOCK_EXCHANGE:
+        return isSetStockExchange();
+      case TICKER:
+        return isSetTicker();
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(java.lang.Object that) {
+      if (that instanceof getLatestQuotation_args)
+        return this.equals((getLatestQuotation_args)that);
+      return false;
+    }
+
+    public boolean equals(getLatestQuotation_args that) {
+      if (that == null)
+        return false;
+      if (this == that)
+        return true;
+
+      boolean this_present_stockExchange = true && this.isSetStockExchange();
+      boolean that_present_stockExchange = true && that.isSetStockExchange();
+      if (this_present_stockExchange || that_present_stockExchange) {
+        if (!(this_present_stockExchange && that_present_stockExchange))
+          return false;
+        if (!this.stockExchange.equals(that.stockExchange))
+          return false;
+      }
+
+      boolean this_present_ticker = true && this.isSetTicker();
+      boolean that_present_ticker = true && that.isSetTicker();
+      if (this_present_ticker || that_present_ticker) {
+        if (!(this_present_ticker && that_present_ticker))
+          return false;
+        if (!this.ticker.equals(that.ticker))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      int hashCode = 1;
+
+      hashCode = hashCode * 8191 + ((isSetStockExchange()) ? 131071 : 524287);
+      if (isSetStockExchange())
+        hashCode = hashCode * 8191 + stockExchange.hashCode();
+
+      hashCode = hashCode * 8191 + ((isSetTicker()) ? 131071 : 524287);
+      if (isSetTicker())
+        hashCode = hashCode * 8191 + ticker.hashCode();
+
+      return hashCode;
+    }
+
+    @Override
+    public int compareTo(getLatestQuotation_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = java.lang.Boolean.compare(isSetStockExchange(), other.isSetStockExchange());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetStockExchange()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.stockExchange, other.stockExchange);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      lastComparison = java.lang.Boolean.compare(isSetTicker(), other.isSetTicker());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetTicker()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.ticker, other.ticker);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      scheme(iprot).read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      scheme(oprot).write(oprot, this);
+    }
+
+    @Override
+    public java.lang.String toString() {
+      java.lang.StringBuilder sb = new java.lang.StringBuilder("getLatestQuotation_args(");
+      boolean first = true;
+
+      sb.append("stockExchange:");
+      if (this.stockExchange == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.stockExchange);
+      }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("ticker:");
+      if (this.ticker == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ticker);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, java.lang.ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class getLatestQuotation_argsStandardSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public getLatestQuotation_argsStandardScheme getScheme() {
+        return new getLatestQuotation_argsStandardScheme();
+      }
+    }
+
+    private static class getLatestQuotation_argsStandardScheme extends org.apache.thrift.scheme.StandardScheme<getLatestQuotation_args> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, getLatestQuotation_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 1: // STOCK_EXCHANGE
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+                struct.stockExchange = iprot.readString();
+                struct.setStockExchangeIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            case 2: // TICKER
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+                struct.ticker = iprot.readString();
+                struct.setTickerIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, getLatestQuotation_args struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.stockExchange != null) {
+          oprot.writeFieldBegin(STOCK_EXCHANGE_FIELD_DESC);
+          oprot.writeString(struct.stockExchange);
+          oprot.writeFieldEnd();
+        }
+        if (struct.ticker != null) {
+          oprot.writeFieldBegin(TICKER_FIELD_DESC);
+          oprot.writeString(struct.ticker);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class getLatestQuotation_argsTupleSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public getLatestQuotation_argsTupleScheme getScheme() {
+        return new getLatestQuotation_argsTupleScheme();
+      }
+    }
+
+    private static class getLatestQuotation_argsTupleScheme extends org.apache.thrift.scheme.TupleScheme<getLatestQuotation_args> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, getLatestQuotation_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol oprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet optionals = new java.util.BitSet();
+        if (struct.isSetStockExchange()) {
+          optionals.set(0);
+        }
+        if (struct.isSetTicker()) {
+          optionals.set(1);
+        }
+        oprot.writeBitSet(optionals, 2);
+        if (struct.isSetStockExchange()) {
+          oprot.writeString(struct.stockExchange);
+        }
+        if (struct.isSetTicker()) {
+          oprot.writeString(struct.ticker);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, getLatestQuotation_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet incoming = iprot.readBitSet(2);
+        if (incoming.get(0)) {
+          struct.stockExchange = iprot.readString();
+          struct.setStockExchangeIsSet(true);
+        }
+        if (incoming.get(1)) {
+          struct.ticker = iprot.readString();
+          struct.setTickerIsSet(true);
+        }
+      }
+    }
+
+    private static <S extends org.apache.thrift.scheme.IScheme> S scheme(org.apache.thrift.protocol.TProtocol proto) {
+      return (org.apache.thrift.scheme.StandardScheme.class.equals(proto.getScheme()) ? STANDARD_SCHEME_FACTORY : TUPLE_SCHEME_FACTORY).getScheme();
+    }
+  }
+
+  public static class getLatestQuotation_result implements org.apache.thrift.TBase<getLatestQuotation_result, getLatestQuotation_result._Fields>, java.io.Serializable, Cloneable, Comparable<getLatestQuotation_result>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("getLatestQuotation_result");
+
+    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.STRUCT, (short)0);
+
+    private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new getLatestQuotation_resultStandardSchemeFactory();
+    private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new getLatestQuotation_resultTupleSchemeFactory();
+
+    public @org.apache.thrift.annotation.Nullable StockPrice success; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      SUCCESS((short)0, "success");
+
+      private static final java.util.Map<java.lang.String, _Fields> byName = new java.util.HashMap<java.lang.String, _Fields>();
+
+      static {
+        for (_Fields field : java.util.EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new java.lang.IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByName(java.lang.String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final java.lang.String _fieldName;
+
+      _Fields(short thriftId, java.lang.String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public java.lang.String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, StockPrice.class)));
+      metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(getLatestQuotation_result.class, metaDataMap);
+    }
+
+    public getLatestQuotation_result() {
+    }
+
+    public getLatestQuotation_result(
+      StockPrice success)
+    {
+      this();
+      this.success = success;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public getLatestQuotation_result(getLatestQuotation_result other) {
+      if (other.isSetSuccess()) {
+        this.success = new StockPrice(other.success);
+      }
+    }
+
+    public getLatestQuotation_result deepCopy() {
+      return new getLatestQuotation_result(this);
+    }
+
+    @Override
+    public void clear() {
+      this.success = null;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public StockPrice getSuccess() {
+      return this.success;
+    }
+
+    public getLatestQuotation_result setSuccess(@org.apache.thrift.annotation.Nullable StockPrice success) {
+      this.success = success;
+      return this;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    /** Returns true if field success is set (has been assigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, @org.apache.thrift.annotation.Nullable java.lang.Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((StockPrice)value);
+        }
+        break;
+
+      }
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public java.lang.Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return getSuccess();
+
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new java.lang.IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(java.lang.Object that) {
+      if (that instanceof getLatestQuotation_result)
+        return this.equals((getLatestQuotation_result)that);
+      return false;
+    }
+
+    public boolean equals(getLatestQuotation_result that) {
+      if (that == null)
+        return false;
+      if (this == that)
+        return true;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      int hashCode = 1;
+
+      hashCode = hashCode * 8191 + ((isSetSuccess()) ? 131071 : 524287);
+      if (isSetSuccess())
+        hashCode = hashCode * 8191 + success.hashCode();
+
+      return hashCode;
+    }
+
+    @Override
+    public int compareTo(getLatestQuotation_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = java.lang.Boolean.compare(isSetSuccess(), other.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, other.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      scheme(iprot).read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      scheme(oprot).write(oprot, this);
+      }
+
+    @Override
+    public java.lang.String toString() {
+      java.lang.StringBuilder sb = new java.lang.StringBuilder("getLatestQuotation_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+      if (success != null) {
+        success.validate();
+      }
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, java.lang.ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class getLatestQuotation_resultStandardSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public getLatestQuotation_resultStandardScheme getScheme() {
+        return new getLatestQuotation_resultStandardScheme();
+      }
+    }
+
+    private static class getLatestQuotation_resultStandardScheme extends org.apache.thrift.scheme.StandardScheme<getLatestQuotation_result> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, getLatestQuotation_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 0: // SUCCESS
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.success = new StockPrice();
+                struct.success.read(iprot);
+                struct.setSuccessIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, getLatestQuotation_result struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.success != null) {
+          oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+          struct.success.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class getLatestQuotation_resultTupleSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public getLatestQuotation_resultTupleScheme getScheme() {
+        return new getLatestQuotation_resultTupleScheme();
+      }
+    }
+
+    private static class getLatestQuotation_resultTupleScheme extends org.apache.thrift.scheme.TupleScheme<getLatestQuotation_result> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, getLatestQuotation_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol oprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet optionals = new java.util.BitSet();
+        if (struct.isSetSuccess()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetSuccess()) {
+          struct.success.write(oprot);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, getLatestQuotation_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.success = new StockPrice();
+          struct.success.read(iprot);
+          struct.setSuccessIsSet(true);
+        }
+      }
+    }
+
+    private static <S extends org.apache.thrift.scheme.IScheme> S scheme(org.apache.thrift.protocol.TProtocol proto) {
+      return (org.apache.thrift.scheme.StandardScheme.class.equals(proto.getScheme()) ? STANDARD_SCHEME_FACTORY : TUPLE_SCHEME_FACTORY).getScheme();
+    }
+  }
+
+  public static class updateQuotation_args implements org.apache.thrift.TBase<updateQuotation_args, updateQuotation_args._Fields>, java.io.Serializable, Cloneable, Comparable<updateQuotation_args>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("updateQuotation_args");
+
+    private static final org.apache.thrift.protocol.TField NEW_STOCK_PRICE_FIELD_DESC = new org.apache.thrift.protocol.TField("newStockPrice", org.apache.thrift.protocol.TType.STRUCT, (short)1);
+
+    private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new updateQuotation_argsStandardSchemeFactory();
+    private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new updateQuotation_argsTupleSchemeFactory();
+
+    public @org.apache.thrift.annotation.Nullable StockPrice newStockPrice; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      NEW_STOCK_PRICE((short)1, "newStockPrice");
+
+      private static final java.util.Map<java.lang.String, _Fields> byName = new java.util.HashMap<java.lang.String, _Fields>();
+
+      static {
+        for (_Fields field : java.util.EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 1: // NEW_STOCK_PRICE
+            return NEW_STOCK_PRICE;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new java.lang.IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByName(java.lang.String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final java.lang.String _fieldName;
+
+      _Fields(short thriftId, java.lang.String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public java.lang.String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.NEW_STOCK_PRICE, new org.apache.thrift.meta_data.FieldMetaData("newStockPrice", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, StockPrice.class)));
+      metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(updateQuotation_args.class, metaDataMap);
+    }
+
+    public updateQuotation_args() {
+    }
+
+    public updateQuotation_args(
+      StockPrice newStockPrice)
+    {
+      this();
+      this.newStockPrice = newStockPrice;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public updateQuotation_args(updateQuotation_args other) {
+      if (other.isSetNewStockPrice()) {
+        this.newStockPrice = new StockPrice(other.newStockPrice);
+      }
+    }
+
+    public updateQuotation_args deepCopy() {
+      return new updateQuotation_args(this);
+    }
+
+    @Override
+    public void clear() {
+      this.newStockPrice = null;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public StockPrice getNewStockPrice() {
+      return this.newStockPrice;
+    }
+
+    public updateQuotation_args setNewStockPrice(@org.apache.thrift.annotation.Nullable StockPrice newStockPrice) {
+      this.newStockPrice = newStockPrice;
+      return this;
+    }
+
+    public void unsetNewStockPrice() {
+      this.newStockPrice = null;
+    }
+
+    /** Returns true if field newStockPrice is set (has been assigned a value) and false otherwise */
+    public boolean isSetNewStockPrice() {
+      return this.newStockPrice != null;
+    }
+
+    public void setNewStockPriceIsSet(boolean value) {
+      if (!value) {
+        this.newStockPrice = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, @org.apache.thrift.annotation.Nullable java.lang.Object value) {
+      switch (field) {
+      case NEW_STOCK_PRICE:
+        if (value == null) {
+          unsetNewStockPrice();
+        } else {
+          setNewStockPrice((StockPrice)value);
+        }
+        break;
+
+      }
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public java.lang.Object getFieldValue(_Fields field) {
+      switch (field) {
+      case NEW_STOCK_PRICE:
+        return getNewStockPrice();
+
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new java.lang.IllegalArgumentException();
+      }
+
+      switch (field) {
+      case NEW_STOCK_PRICE:
+        return isSetNewStockPrice();
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(java.lang.Object that) {
+      if (that instanceof updateQuotation_args)
+        return this.equals((updateQuotation_args)that);
+      return false;
+    }
+
+    public boolean equals(updateQuotation_args that) {
+      if (that == null)
+        return false;
+      if (this == that)
+        return true;
+
+      boolean this_present_newStockPrice = true && this.isSetNewStockPrice();
+      boolean that_present_newStockPrice = true && that.isSetNewStockPrice();
+      if (this_present_newStockPrice || that_present_newStockPrice) {
+        if (!(this_present_newStockPrice && that_present_newStockPrice))
+          return false;
+        if (!this.newStockPrice.equals(that.newStockPrice))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      int hashCode = 1;
+
+      hashCode = hashCode * 8191 + ((isSetNewStockPrice()) ? 131071 : 524287);
+      if (isSetNewStockPrice())
+        hashCode = hashCode * 8191 + newStockPrice.hashCode();
+
+      return hashCode;
+    }
+
+    @Override
+    public int compareTo(updateQuotation_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = java.lang.Boolean.compare(isSetNewStockPrice(), other.isSetNewStockPrice());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetNewStockPrice()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.newStockPrice, other.newStockPrice);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      scheme(iprot).read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      scheme(oprot).write(oprot, this);
+    }
+
+    @Override
+    public java.lang.String toString() {
+      java.lang.StringBuilder sb = new java.lang.StringBuilder("updateQuotation_args(");
+      boolean first = true;
+
+      sb.append("newStockPrice:");
+      if (this.newStockPrice == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.newStockPrice);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+      if (newStockPrice != null) {
+        newStockPrice.validate();
+      }
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, java.lang.ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class updateQuotation_argsStandardSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public updateQuotation_argsStandardScheme getScheme() {
+        return new updateQuotation_argsStandardScheme();
+      }
+    }
+
+    private static class updateQuotation_argsStandardScheme extends org.apache.thrift.scheme.StandardScheme<updateQuotation_args> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, updateQuotation_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 1: // NEW_STOCK_PRICE
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.newStockPrice = new StockPrice();
+                struct.newStockPrice.read(iprot);
+                struct.setNewStockPriceIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, updateQuotation_args struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.newStockPrice != null) {
+          oprot.writeFieldBegin(NEW_STOCK_PRICE_FIELD_DESC);
+          struct.newStockPrice.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class updateQuotation_argsTupleSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public updateQuotation_argsTupleScheme getScheme() {
+        return new updateQuotation_argsTupleScheme();
+      }
+    }
+
+    private static class updateQuotation_argsTupleScheme extends org.apache.thrift.scheme.TupleScheme<updateQuotation_args> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, updateQuotation_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol oprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet optionals = new java.util.BitSet();
+        if (struct.isSetNewStockPrice()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetNewStockPrice()) {
+          struct.newStockPrice.write(oprot);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, updateQuotation_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.newStockPrice = new StockPrice();
+          struct.newStockPrice.read(iprot);
+          struct.setNewStockPriceIsSet(true);
+        }
+      }
+    }
+
+    private static <S extends org.apache.thrift.scheme.IScheme> S scheme(org.apache.thrift.protocol.TProtocol proto) {
+      return (org.apache.thrift.scheme.StandardScheme.class.equals(proto.getScheme()) ? STANDARD_SCHEME_FACTORY : TUPLE_SCHEME_FACTORY).getScheme();
+    }
+  }
+
+  public static class updateQuotation_result implements org.apache.thrift.TBase<updateQuotation_result, updateQuotation_result._Fields>, java.io.Serializable, Cloneable, Comparable<updateQuotation_result>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("updateQuotation_result");
+
+    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.STRUCT, (short)0);
+
+    private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new updateQuotation_resultStandardSchemeFactory();
+    private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new updateQuotation_resultTupleSchemeFactory();
+
+    public @org.apache.thrift.annotation.Nullable edu.pja.sri.hw06.stockexchangeservice.StatusMessage success; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      SUCCESS((short)0, "success");
+
+      private static final java.util.Map<java.lang.String, _Fields> byName = new java.util.HashMap<java.lang.String, _Fields>();
+
+      static {
+        for (_Fields field : java.util.EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new java.lang.IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByName(java.lang.String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final java.lang.String _fieldName;
+
+      _Fields(short thriftId, java.lang.String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public java.lang.String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, edu.pja.sri.hw06.stockexchangeservice.StatusMessage.class)));
+      metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(updateQuotation_result.class, metaDataMap);
+    }
+
+    public updateQuotation_result() {
+    }
+
+    public updateQuotation_result(
+      edu.pja.sri.hw06.stockexchangeservice.StatusMessage success)
+    {
+      this();
+      this.success = success;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public updateQuotation_result(updateQuotation_result other) {
+      if (other.isSetSuccess()) {
+        this.success = new edu.pja.sri.hw06.stockexchangeservice.StatusMessage(other.success);
+      }
+    }
+
+    public updateQuotation_result deepCopy() {
+      return new updateQuotation_result(this);
+    }
+
+    @Override
+    public void clear() {
+      this.success = null;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public edu.pja.sri.hw06.stockexchangeservice.StatusMessage getSuccess() {
+      return this.success;
+    }
+
+    public updateQuotation_result setSuccess(@org.apache.thrift.annotation.Nullable edu.pja.sri.hw06.stockexchangeservice.StatusMessage success) {
+      this.success = success;
+      return this;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    /** Returns true if field success is set (has been assigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, @org.apache.thrift.annotation.Nullable java.lang.Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((edu.pja.sri.hw06.stockexchangeservice.StatusMessage)value);
+        }
+        break;
+
+      }
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public java.lang.Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return getSuccess();
+
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new java.lang.IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(java.lang.Object that) {
+      if (that instanceof updateQuotation_result)
+        return this.equals((updateQuotation_result)that);
+      return false;
+    }
+
+    public boolean equals(updateQuotation_result that) {
+      if (that == null)
+        return false;
+      if (this == that)
+        return true;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      int hashCode = 1;
+
+      hashCode = hashCode * 8191 + ((isSetSuccess()) ? 131071 : 524287);
+      if (isSetSuccess())
+        hashCode = hashCode * 8191 + success.hashCode();
+
+      return hashCode;
+    }
+
+    @Override
+    public int compareTo(updateQuotation_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = java.lang.Boolean.compare(isSetSuccess(), other.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, other.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      scheme(iprot).read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      scheme(oprot).write(oprot, this);
+      }
+
+    @Override
+    public java.lang.String toString() {
+      java.lang.StringBuilder sb = new java.lang.StringBuilder("updateQuotation_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+      if (success != null) {
+        success.validate();
+      }
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, java.lang.ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class updateQuotation_resultStandardSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public updateQuotation_resultStandardScheme getScheme() {
+        return new updateQuotation_resultStandardScheme();
+      }
+    }
+
+    private static class updateQuotation_resultStandardScheme extends org.apache.thrift.scheme.StandardScheme<updateQuotation_result> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, updateQuotation_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 0: // SUCCESS
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.success = new edu.pja.sri.hw06.stockexchangeservice.StatusMessage();
+                struct.success.read(iprot);
+                struct.setSuccessIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, updateQuotation_result struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.success != null) {
+          oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+          struct.success.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class updateQuotation_resultTupleSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public updateQuotation_resultTupleScheme getScheme() {
+        return new updateQuotation_resultTupleScheme();
+      }
+    }
+
+    private static class updateQuotation_resultTupleScheme extends org.apache.thrift.scheme.TupleScheme<updateQuotation_result> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, updateQuotation_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol oprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet optionals = new java.util.BitSet();
+        if (struct.isSetSuccess()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetSuccess()) {
+          struct.success.write(oprot);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, updateQuotation_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.success = new edu.pja.sri.hw06.stockexchangeservice.StatusMessage();
+          struct.success.read(iprot);
+          struct.setSuccessIsSet(true);
+        }
+      }
+    }
+
+    private static <S extends org.apache.thrift.scheme.IScheme> S scheme(org.apache.thrift.protocol.TProtocol proto) {
+      return (org.apache.thrift.scheme.StandardScheme.class.equals(proto.getScheme()) ? STANDARD_SCHEME_FACTORY : TUPLE_SCHEME_FACTORY).getScheme();
+    }
+  }
+
+  public static class addNewQuotation_args implements org.apache.thrift.TBase<addNewQuotation_args, addNewQuotation_args._Fields>, java.io.Serializable, Cloneable, Comparable<addNewQuotation_args>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("addNewQuotation_args");
+
+    private static final org.apache.thrift.protocol.TField NEW_STOCK_PRICE_FIELD_DESC = new org.apache.thrift.protocol.TField("newStockPrice", org.apache.thrift.protocol.TType.STRUCT, (short)1);
+
+    private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new addNewQuotation_argsStandardSchemeFactory();
+    private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new addNewQuotation_argsTupleSchemeFactory();
+
+    public @org.apache.thrift.annotation.Nullable StockPrice newStockPrice; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      NEW_STOCK_PRICE((short)1, "newStockPrice");
+
+      private static final java.util.Map<java.lang.String, _Fields> byName = new java.util.HashMap<java.lang.String, _Fields>();
+
+      static {
+        for (_Fields field : java.util.EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 1: // NEW_STOCK_PRICE
+            return NEW_STOCK_PRICE;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new java.lang.IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByName(java.lang.String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final java.lang.String _fieldName;
+
+      _Fields(short thriftId, java.lang.String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public java.lang.String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.NEW_STOCK_PRICE, new org.apache.thrift.meta_data.FieldMetaData("newStockPrice", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, StockPrice.class)));
+      metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(addNewQuotation_args.class, metaDataMap);
+    }
+
+    public addNewQuotation_args() {
+    }
+
+    public addNewQuotation_args(
+      StockPrice newStockPrice)
+    {
+      this();
+      this.newStockPrice = newStockPrice;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public addNewQuotation_args(addNewQuotation_args other) {
+      if (other.isSetNewStockPrice()) {
+        this.newStockPrice = new StockPrice(other.newStockPrice);
+      }
+    }
+
+    public addNewQuotation_args deepCopy() {
+      return new addNewQuotation_args(this);
+    }
+
+    @Override
+    public void clear() {
+      this.newStockPrice = null;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public StockPrice getNewStockPrice() {
+      return this.newStockPrice;
+    }
+
+    public addNewQuotation_args setNewStockPrice(@org.apache.thrift.annotation.Nullable StockPrice newStockPrice) {
+      this.newStockPrice = newStockPrice;
+      return this;
+    }
+
+    public void unsetNewStockPrice() {
+      this.newStockPrice = null;
+    }
+
+    /** Returns true if field newStockPrice is set (has been assigned a value) and false otherwise */
+    public boolean isSetNewStockPrice() {
+      return this.newStockPrice != null;
+    }
+
+    public void setNewStockPriceIsSet(boolean value) {
+      if (!value) {
+        this.newStockPrice = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, @org.apache.thrift.annotation.Nullable java.lang.Object value) {
+      switch (field) {
+      case NEW_STOCK_PRICE:
+        if (value == null) {
+          unsetNewStockPrice();
+        } else {
+          setNewStockPrice((StockPrice)value);
+        }
+        break;
+
+      }
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public java.lang.Object getFieldValue(_Fields field) {
+      switch (field) {
+      case NEW_STOCK_PRICE:
+        return getNewStockPrice();
+
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new java.lang.IllegalArgumentException();
+      }
+
+      switch (field) {
+      case NEW_STOCK_PRICE:
+        return isSetNewStockPrice();
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(java.lang.Object that) {
+      if (that instanceof addNewQuotation_args)
+        return this.equals((addNewQuotation_args)that);
+      return false;
+    }
+
+    public boolean equals(addNewQuotation_args that) {
+      if (that == null)
+        return false;
+      if (this == that)
+        return true;
+
+      boolean this_present_newStockPrice = true && this.isSetNewStockPrice();
+      boolean that_present_newStockPrice = true && that.isSetNewStockPrice();
+      if (this_present_newStockPrice || that_present_newStockPrice) {
+        if (!(this_present_newStockPrice && that_present_newStockPrice))
+          return false;
+        if (!this.newStockPrice.equals(that.newStockPrice))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      int hashCode = 1;
+
+      hashCode = hashCode * 8191 + ((isSetNewStockPrice()) ? 131071 : 524287);
+      if (isSetNewStockPrice())
+        hashCode = hashCode * 8191 + newStockPrice.hashCode();
+
+      return hashCode;
+    }
+
+    @Override
+    public int compareTo(addNewQuotation_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = java.lang.Boolean.compare(isSetNewStockPrice(), other.isSetNewStockPrice());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetNewStockPrice()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.newStockPrice, other.newStockPrice);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      scheme(iprot).read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      scheme(oprot).write(oprot, this);
+    }
+
+    @Override
+    public java.lang.String toString() {
+      java.lang.StringBuilder sb = new java.lang.StringBuilder("addNewQuotation_args(");
+      boolean first = true;
+
+      sb.append("newStockPrice:");
+      if (this.newStockPrice == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.newStockPrice);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+      if (newStockPrice != null) {
+        newStockPrice.validate();
+      }
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, java.lang.ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class addNewQuotation_argsStandardSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public addNewQuotation_argsStandardScheme getScheme() {
+        return new addNewQuotation_argsStandardScheme();
+      }
+    }
+
+    private static class addNewQuotation_argsStandardScheme extends org.apache.thrift.scheme.StandardScheme<addNewQuotation_args> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, addNewQuotation_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 1: // NEW_STOCK_PRICE
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.newStockPrice = new StockPrice();
+                struct.newStockPrice.read(iprot);
+                struct.setNewStockPriceIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, addNewQuotation_args struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.newStockPrice != null) {
+          oprot.writeFieldBegin(NEW_STOCK_PRICE_FIELD_DESC);
+          struct.newStockPrice.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class addNewQuotation_argsTupleSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public addNewQuotation_argsTupleScheme getScheme() {
+        return new addNewQuotation_argsTupleScheme();
+      }
+    }
+
+    private static class addNewQuotation_argsTupleScheme extends org.apache.thrift.scheme.TupleScheme<addNewQuotation_args> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, addNewQuotation_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol oprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet optionals = new java.util.BitSet();
+        if (struct.isSetNewStockPrice()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetNewStockPrice()) {
+          struct.newStockPrice.write(oprot);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, addNewQuotation_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.newStockPrice = new StockPrice();
+          struct.newStockPrice.read(iprot);
+          struct.setNewStockPriceIsSet(true);
+        }
+      }
+    }
+
+    private static <S extends org.apache.thrift.scheme.IScheme> S scheme(org.apache.thrift.protocol.TProtocol proto) {
+      return (org.apache.thrift.scheme.StandardScheme.class.equals(proto.getScheme()) ? STANDARD_SCHEME_FACTORY : TUPLE_SCHEME_FACTORY).getScheme();
+    }
+  }
+
+  public static class addNewQuotation_result implements org.apache.thrift.TBase<addNewQuotation_result, addNewQuotation_result._Fields>, java.io.Serializable, Cloneable, Comparable<addNewQuotation_result>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("addNewQuotation_result");
+
+    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.STRUCT, (short)0);
+
+    private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new addNewQuotation_resultStandardSchemeFactory();
+    private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new addNewQuotation_resultTupleSchemeFactory();
+
+    public @org.apache.thrift.annotation.Nullable edu.pja.sri.hw06.stockexchangeservice.StatusMessage success; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      SUCCESS((short)0, "success");
+
+      private static final java.util.Map<java.lang.String, _Fields> byName = new java.util.HashMap<java.lang.String, _Fields>();
+
+      static {
+        for (_Fields field : java.util.EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new java.lang.IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByName(java.lang.String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final java.lang.String _fieldName;
+
+      _Fields(short thriftId, java.lang.String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public java.lang.String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, edu.pja.sri.hw06.stockexchangeservice.StatusMessage.class)));
+      metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(addNewQuotation_result.class, metaDataMap);
+    }
+
+    public addNewQuotation_result() {
+    }
+
+    public addNewQuotation_result(
+      edu.pja.sri.hw06.stockexchangeservice.StatusMessage success)
+    {
+      this();
+      this.success = success;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public addNewQuotation_result(addNewQuotation_result other) {
+      if (other.isSetSuccess()) {
+        this.success = new edu.pja.sri.hw06.stockexchangeservice.StatusMessage(other.success);
+      }
+    }
+
+    public addNewQuotation_result deepCopy() {
+      return new addNewQuotation_result(this);
+    }
+
+    @Override
+    public void clear() {
+      this.success = null;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public edu.pja.sri.hw06.stockexchangeservice.StatusMessage getSuccess() {
+      return this.success;
+    }
+
+    public addNewQuotation_result setSuccess(@org.apache.thrift.annotation.Nullable edu.pja.sri.hw06.stockexchangeservice.StatusMessage success) {
+      this.success = success;
+      return this;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    /** Returns true if field success is set (has been assigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, @org.apache.thrift.annotation.Nullable java.lang.Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((edu.pja.sri.hw06.stockexchangeservice.StatusMessage)value);
+        }
+        break;
+
+      }
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public java.lang.Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return getSuccess();
+
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new java.lang.IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(java.lang.Object that) {
+      if (that instanceof addNewQuotation_result)
+        return this.equals((addNewQuotation_result)that);
+      return false;
+    }
+
+    public boolean equals(addNewQuotation_result that) {
+      if (that == null)
+        return false;
+      if (this == that)
+        return true;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      int hashCode = 1;
+
+      hashCode = hashCode * 8191 + ((isSetSuccess()) ? 131071 : 524287);
+      if (isSetSuccess())
+        hashCode = hashCode * 8191 + success.hashCode();
+
+      return hashCode;
+    }
+
+    @Override
+    public int compareTo(addNewQuotation_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = java.lang.Boolean.compare(isSetSuccess(), other.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, other.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      scheme(iprot).read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      scheme(oprot).write(oprot, this);
+      }
+
+    @Override
+    public java.lang.String toString() {
+      java.lang.StringBuilder sb = new java.lang.StringBuilder("addNewQuotation_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+      if (success != null) {
+        success.validate();
+      }
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, java.lang.ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class addNewQuotation_resultStandardSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public addNewQuotation_resultStandardScheme getScheme() {
+        return new addNewQuotation_resultStandardScheme();
+      }
+    }
+
+    private static class addNewQuotation_resultStandardScheme extends org.apache.thrift.scheme.StandardScheme<addNewQuotation_result> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, addNewQuotation_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 0: // SUCCESS
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.success = new edu.pja.sri.hw06.stockexchangeservice.StatusMessage();
+                struct.success.read(iprot);
+                struct.setSuccessIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, addNewQuotation_result struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.success != null) {
+          oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+          struct.success.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class addNewQuotation_resultTupleSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public addNewQuotation_resultTupleScheme getScheme() {
+        return new addNewQuotation_resultTupleScheme();
+      }
+    }
+
+    private static class addNewQuotation_resultTupleScheme extends org.apache.thrift.scheme.TupleScheme<addNewQuotation_result> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, addNewQuotation_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol oprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet optionals = new java.util.BitSet();
+        if (struct.isSetSuccess()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetSuccess()) {
+          struct.success.write(oprot);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, addNewQuotation_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.success = new edu.pja.sri.hw06.stockexchangeservice.StatusMessage();
+          struct.success.read(iprot);
+          struct.setSuccessIsSet(true);
+        }
+      }
+    }
+
+    private static <S extends org.apache.thrift.scheme.IScheme> S scheme(org.apache.thrift.protocol.TProtocol proto) {
+      return (org.apache.thrift.scheme.StandardScheme.class.equals(proto.getScheme()) ? STANDARD_SCHEME_FACTORY : TUPLE_SCHEME_FACTORY).getScheme();
+    }
+  }
+
+  public static class getMaxByWindow_args implements org.apache.thrift.TBase<getMaxByWindow_args, getMaxByWindow_args._Fields>, java.io.Serializable, Cloneable, Comparable<getMaxByWindow_args>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("getMaxByWindow_args");
+
+    private static final org.apache.thrift.protocol.TField FROM_TIMESTAMP_FIELD_DESC = new org.apache.thrift.protocol.TField("fromTimestamp", org.apache.thrift.protocol.TType.I64, (short)1);
+    private static final org.apache.thrift.protocol.TField TO_TIMESTAMP_FIELD_DESC = new org.apache.thrift.protocol.TField("toTimestamp", org.apache.thrift.protocol.TType.I64, (short)2);
+
+    private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new getMaxByWindow_argsStandardSchemeFactory();
+    private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new getMaxByWindow_argsTupleSchemeFactory();
+
+    public long fromTimestamp; // required
+    public long toTimestamp; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      FROM_TIMESTAMP((short)1, "fromTimestamp"),
+      TO_TIMESTAMP((short)2, "toTimestamp");
+
+      private static final java.util.Map<java.lang.String, _Fields> byName = new java.util.HashMap<java.lang.String, _Fields>();
+
+      static {
+        for (_Fields field : java.util.EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 1: // FROM_TIMESTAMP
+            return FROM_TIMESTAMP;
+          case 2: // TO_TIMESTAMP
+            return TO_TIMESTAMP;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new java.lang.IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByName(java.lang.String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final java.lang.String _fieldName;
+
+      _Fields(short thriftId, java.lang.String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public java.lang.String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    private static final int __FROMTIMESTAMP_ISSET_ID = 0;
+    private static final int __TOTIMESTAMP_ISSET_ID = 1;
+    private byte __isset_bitfield = 0;
+    public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.FROM_TIMESTAMP, new org.apache.thrift.meta_data.FieldMetaData("fromTimestamp", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I64)));
+      tmpMap.put(_Fields.TO_TIMESTAMP, new org.apache.thrift.meta_data.FieldMetaData("toTimestamp", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I64)));
+      metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(getMaxByWindow_args.class, metaDataMap);
+    }
+
+    public getMaxByWindow_args() {
+    }
+
+    public getMaxByWindow_args(
+      long fromTimestamp,
+      long toTimestamp)
+    {
+      this();
+      this.fromTimestamp = fromTimestamp;
+      setFromTimestampIsSet(true);
+      this.toTimestamp = toTimestamp;
+      setToTimestampIsSet(true);
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public getMaxByWindow_args(getMaxByWindow_args other) {
+      __isset_bitfield = other.__isset_bitfield;
+      this.fromTimestamp = other.fromTimestamp;
+      this.toTimestamp = other.toTimestamp;
+    }
+
+    public getMaxByWindow_args deepCopy() {
+      return new getMaxByWindow_args(this);
+    }
+
+    @Override
+    public void clear() {
+      setFromTimestampIsSet(false);
+      this.fromTimestamp = 0;
+      setToTimestampIsSet(false);
+      this.toTimestamp = 0;
+    }
+
+    public long getFromTimestamp() {
+      return this.fromTimestamp;
+    }
+
+    public getMaxByWindow_args setFromTimestamp(long fromTimestamp) {
+      this.fromTimestamp = fromTimestamp;
+      setFromTimestampIsSet(true);
+      return this;
+    }
+
+    public void unsetFromTimestamp() {
+      __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __FROMTIMESTAMP_ISSET_ID);
+    }
+
+    /** Returns true if field fromTimestamp is set (has been assigned a value) and false otherwise */
+    public boolean isSetFromTimestamp() {
+      return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __FROMTIMESTAMP_ISSET_ID);
+    }
+
+    public void setFromTimestampIsSet(boolean value) {
+      __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __FROMTIMESTAMP_ISSET_ID, value);
+    }
+
+    public long getToTimestamp() {
+      return this.toTimestamp;
+    }
+
+    public getMaxByWindow_args setToTimestamp(long toTimestamp) {
+      this.toTimestamp = toTimestamp;
+      setToTimestampIsSet(true);
+      return this;
+    }
+
+    public void unsetToTimestamp() {
+      __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __TOTIMESTAMP_ISSET_ID);
+    }
+
+    /** Returns true if field toTimestamp is set (has been assigned a value) and false otherwise */
+    public boolean isSetToTimestamp() {
+      return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __TOTIMESTAMP_ISSET_ID);
+    }
+
+    public void setToTimestampIsSet(boolean value) {
+      __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __TOTIMESTAMP_ISSET_ID, value);
+    }
+
+    public void setFieldValue(_Fields field, @org.apache.thrift.annotation.Nullable java.lang.Object value) {
+      switch (field) {
+      case FROM_TIMESTAMP:
+        if (value == null) {
+          unsetFromTimestamp();
+        } else {
+          setFromTimestamp((java.lang.Long)value);
+        }
+        break;
+
+      case TO_TIMESTAMP:
+        if (value == null) {
+          unsetToTimestamp();
+        } else {
+          setToTimestamp((java.lang.Long)value);
+        }
+        break;
+
+      }
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public java.lang.Object getFieldValue(_Fields field) {
+      switch (field) {
+      case FROM_TIMESTAMP:
+        return getFromTimestamp();
+
+      case TO_TIMESTAMP:
+        return getToTimestamp();
+
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new java.lang.IllegalArgumentException();
+      }
+
+      switch (field) {
+      case FROM_TIMESTAMP:
+        return isSetFromTimestamp();
+      case TO_TIMESTAMP:
+        return isSetToTimestamp();
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(java.lang.Object that) {
+      if (that instanceof getMaxByWindow_args)
+        return this.equals((getMaxByWindow_args)that);
+      return false;
+    }
+
+    public boolean equals(getMaxByWindow_args that) {
+      if (that == null)
+        return false;
+      if (this == that)
+        return true;
+
+      boolean this_present_fromTimestamp = true;
+      boolean that_present_fromTimestamp = true;
+      if (this_present_fromTimestamp || that_present_fromTimestamp) {
+        if (!(this_present_fromTimestamp && that_present_fromTimestamp))
+          return false;
+        if (this.fromTimestamp != that.fromTimestamp)
+          return false;
+      }
+
+      boolean this_present_toTimestamp = true;
+      boolean that_present_toTimestamp = true;
+      if (this_present_toTimestamp || that_present_toTimestamp) {
+        if (!(this_present_toTimestamp && that_present_toTimestamp))
+          return false;
+        if (this.toTimestamp != that.toTimestamp)
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      int hashCode = 1;
+
+      hashCode = hashCode * 8191 + org.apache.thrift.TBaseHelper.hashCode(fromTimestamp);
+
+      hashCode = hashCode * 8191 + org.apache.thrift.TBaseHelper.hashCode(toTimestamp);
+
+      return hashCode;
+    }
+
+    @Override
+    public int compareTo(getMaxByWindow_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = java.lang.Boolean.compare(isSetFromTimestamp(), other.isSetFromTimestamp());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetFromTimestamp()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.fromTimestamp, other.fromTimestamp);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      lastComparison = java.lang.Boolean.compare(isSetToTimestamp(), other.isSetToTimestamp());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetToTimestamp()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.toTimestamp, other.toTimestamp);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      scheme(iprot).read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      scheme(oprot).write(oprot, this);
+    }
+
+    @Override
+    public java.lang.String toString() {
+      java.lang.StringBuilder sb = new java.lang.StringBuilder("getMaxByWindow_args(");
+      boolean first = true;
+
+      sb.append("fromTimestamp:");
+      sb.append(this.fromTimestamp);
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("toTimestamp:");
+      sb.append(this.toTimestamp);
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, java.lang.ClassNotFoundException {
+      try {
+        // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
+        __isset_bitfield = 0;
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class getMaxByWindow_argsStandardSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public getMaxByWindow_argsStandardScheme getScheme() {
+        return new getMaxByWindow_argsStandardScheme();
+      }
+    }
+
+    private static class getMaxByWindow_argsStandardScheme extends org.apache.thrift.scheme.StandardScheme<getMaxByWindow_args> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, getMaxByWindow_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 1: // FROM_TIMESTAMP
+              if (schemeField.type == org.apache.thrift.protocol.TType.I64) {
+                struct.fromTimestamp = iprot.readI64();
+                struct.setFromTimestampIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            case 2: // TO_TIMESTAMP
+              if (schemeField.type == org.apache.thrift.protocol.TType.I64) {
+                struct.toTimestamp = iprot.readI64();
+                struct.setToTimestampIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, getMaxByWindow_args struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        oprot.writeFieldBegin(FROM_TIMESTAMP_FIELD_DESC);
+        oprot.writeI64(struct.fromTimestamp);
+        oprot.writeFieldEnd();
+        oprot.writeFieldBegin(TO_TIMESTAMP_FIELD_DESC);
+        oprot.writeI64(struct.toTimestamp);
+        oprot.writeFieldEnd();
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class getMaxByWindow_argsTupleSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public getMaxByWindow_argsTupleScheme getScheme() {
+        return new getMaxByWindow_argsTupleScheme();
+      }
+    }
+
+    private static class getMaxByWindow_argsTupleScheme extends org.apache.thrift.scheme.TupleScheme<getMaxByWindow_args> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, getMaxByWindow_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol oprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet optionals = new java.util.BitSet();
+        if (struct.isSetFromTimestamp()) {
+          optionals.set(0);
+        }
+        if (struct.isSetToTimestamp()) {
+          optionals.set(1);
+        }
+        oprot.writeBitSet(optionals, 2);
+        if (struct.isSetFromTimestamp()) {
+          oprot.writeI64(struct.fromTimestamp);
+        }
+        if (struct.isSetToTimestamp()) {
+          oprot.writeI64(struct.toTimestamp);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, getMaxByWindow_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet incoming = iprot.readBitSet(2);
+        if (incoming.get(0)) {
+          struct.fromTimestamp = iprot.readI64();
+          struct.setFromTimestampIsSet(true);
+        }
+        if (incoming.get(1)) {
+          struct.toTimestamp = iprot.readI64();
+          struct.setToTimestampIsSet(true);
+        }
+      }
+    }
+
+    private static <S extends org.apache.thrift.scheme.IScheme> S scheme(org.apache.thrift.protocol.TProtocol proto) {
+      return (org.apache.thrift.scheme.StandardScheme.class.equals(proto.getScheme()) ? STANDARD_SCHEME_FACTORY : TUPLE_SCHEME_FACTORY).getScheme();
+    }
+  }
+
+  public static class getMaxByWindow_result implements org.apache.thrift.TBase<getMaxByWindow_result, getMaxByWindow_result._Fields>, java.io.Serializable, Cloneable, Comparable<getMaxByWindow_result>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("getMaxByWindow_result");
+
+    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.STRUCT, (short)0);
+
+    private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new getMaxByWindow_resultStandardSchemeFactory();
+    private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new getMaxByWindow_resultTupleSchemeFactory();
+
+    public @org.apache.thrift.annotation.Nullable StockPrice success; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      SUCCESS((short)0, "success");
+
+      private static final java.util.Map<java.lang.String, _Fields> byName = new java.util.HashMap<java.lang.String, _Fields>();
+
+      static {
+        for (_Fields field : java.util.EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new java.lang.IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByName(java.lang.String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final java.lang.String _fieldName;
+
+      _Fields(short thriftId, java.lang.String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public java.lang.String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, StockPrice.class)));
+      metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(getMaxByWindow_result.class, metaDataMap);
+    }
+
+    public getMaxByWindow_result() {
+    }
+
+    public getMaxByWindow_result(
+      StockPrice success)
+    {
+      this();
+      this.success = success;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public getMaxByWindow_result(getMaxByWindow_result other) {
+      if (other.isSetSuccess()) {
+        this.success = new StockPrice(other.success);
+      }
+    }
+
+    public getMaxByWindow_result deepCopy() {
+      return new getMaxByWindow_result(this);
+    }
+
+    @Override
+    public void clear() {
+      this.success = null;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public StockPrice getSuccess() {
+      return this.success;
+    }
+
+    public getMaxByWindow_result setSuccess(@org.apache.thrift.annotation.Nullable StockPrice success) {
+      this.success = success;
+      return this;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    /** Returns true if field success is set (has been assigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, @org.apache.thrift.annotation.Nullable java.lang.Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((StockPrice)value);
+        }
+        break;
+
+      }
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public java.lang.Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return getSuccess();
+
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new java.lang.IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(java.lang.Object that) {
+      if (that instanceof getMaxByWindow_result)
+        return this.equals((getMaxByWindow_result)that);
+      return false;
+    }
+
+    public boolean equals(getMaxByWindow_result that) {
+      if (that == null)
+        return false;
+      if (this == that)
+        return true;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      int hashCode = 1;
+
+      hashCode = hashCode * 8191 + ((isSetSuccess()) ? 131071 : 524287);
+      if (isSetSuccess())
+        hashCode = hashCode * 8191 + success.hashCode();
+
+      return hashCode;
+    }
+
+    @Override
+    public int compareTo(getMaxByWindow_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = java.lang.Boolean.compare(isSetSuccess(), other.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, other.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      scheme(iprot).read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      scheme(oprot).write(oprot, this);
+      }
+
+    @Override
+    public java.lang.String toString() {
+      java.lang.StringBuilder sb = new java.lang.StringBuilder("getMaxByWindow_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+      if (success != null) {
+        success.validate();
+      }
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, java.lang.ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class getMaxByWindow_resultStandardSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public getMaxByWindow_resultStandardScheme getScheme() {
+        return new getMaxByWindow_resultStandardScheme();
+      }
+    }
+
+    private static class getMaxByWindow_resultStandardScheme extends org.apache.thrift.scheme.StandardScheme<getMaxByWindow_result> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, getMaxByWindow_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 0: // SUCCESS
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.success = new StockPrice();
+                struct.success.read(iprot);
+                struct.setSuccessIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, getMaxByWindow_result struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.success != null) {
+          oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+          struct.success.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class getMaxByWindow_resultTupleSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public getMaxByWindow_resultTupleScheme getScheme() {
+        return new getMaxByWindow_resultTupleScheme();
+      }
+    }
+
+    private static class getMaxByWindow_resultTupleScheme extends org.apache.thrift.scheme.TupleScheme<getMaxByWindow_result> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, getMaxByWindow_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol oprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet optionals = new java.util.BitSet();
+        if (struct.isSetSuccess()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetSuccess()) {
+          struct.success.write(oprot);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, getMaxByWindow_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.success = new StockPrice();
+          struct.success.read(iprot);
+          struct.setSuccessIsSet(true);
+        }
+      }
+    }
+
+    private static <S extends org.apache.thrift.scheme.IScheme> S scheme(org.apache.thrift.protocol.TProtocol proto) {
+      return (org.apache.thrift.scheme.StandardScheme.class.equals(proto.getScheme()) ? STANDARD_SCHEME_FACTORY : TUPLE_SCHEME_FACTORY).getScheme();
+    }
+  }
+
+  public static class getExponentialMovingAverage_args implements org.apache.thrift.TBase<getExponentialMovingAverage_args, getExponentialMovingAverage_args._Fields>, java.io.Serializable, Cloneable, Comparable<getExponentialMovingAverage_args>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("getExponentialMovingAverage_args");
+
+    private static final org.apache.thrift.protocol.TField STOCK_EXCHANGE_FIELD_DESC = new org.apache.thrift.protocol.TField("stockExchange", org.apache.thrift.protocol.TType.STRING, (short)1);
+    private static final org.apache.thrift.protocol.TField TICKER_FIELD_DESC = new org.apache.thrift.protocol.TField("ticker", org.apache.thrift.protocol.TType.STRING, (short)2);
+    private static final org.apache.thrift.protocol.TField OBSERVATION_COUNT_FIELD_DESC = new org.apache.thrift.protocol.TField("observationCount", org.apache.thrift.protocol.TType.I64, (short)3);
+
+    private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new getExponentialMovingAverage_argsStandardSchemeFactory();
+    private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new getExponentialMovingAverage_argsTupleSchemeFactory();
+
+    public @org.apache.thrift.annotation.Nullable java.lang.String stockExchange; // required
+    public @org.apache.thrift.annotation.Nullable java.lang.String ticker; // required
+    public long observationCount; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      STOCK_EXCHANGE((short)1, "stockExchange"),
+      TICKER((short)2, "ticker"),
+      OBSERVATION_COUNT((short)3, "observationCount");
+
+      private static final java.util.Map<java.lang.String, _Fields> byName = new java.util.HashMap<java.lang.String, _Fields>();
+
+      static {
+        for (_Fields field : java.util.EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 1: // STOCK_EXCHANGE
+            return STOCK_EXCHANGE;
+          case 2: // TICKER
+            return TICKER;
+          case 3: // OBSERVATION_COUNT
+            return OBSERVATION_COUNT;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new java.lang.IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByName(java.lang.String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final java.lang.String _fieldName;
+
+      _Fields(short thriftId, java.lang.String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public java.lang.String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    private static final int __OBSERVATIONCOUNT_ISSET_ID = 0;
+    private byte __isset_bitfield = 0;
+    public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.STOCK_EXCHANGE, new org.apache.thrift.meta_data.FieldMetaData("stockExchange", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      tmpMap.put(_Fields.TICKER, new org.apache.thrift.meta_data.FieldMetaData("ticker", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      tmpMap.put(_Fields.OBSERVATION_COUNT, new org.apache.thrift.meta_data.FieldMetaData("observationCount", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I64)));
+      metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(getExponentialMovingAverage_args.class, metaDataMap);
+    }
+
+    public getExponentialMovingAverage_args() {
+    }
+
+    public getExponentialMovingAverage_args(
+      java.lang.String stockExchange,
+      java.lang.String ticker,
+      long observationCount)
+    {
+      this();
+      this.stockExchange = stockExchange;
+      this.ticker = ticker;
+      this.observationCount = observationCount;
+      setObservationCountIsSet(true);
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public getExponentialMovingAverage_args(getExponentialMovingAverage_args other) {
+      __isset_bitfield = other.__isset_bitfield;
+      if (other.isSetStockExchange()) {
+        this.stockExchange = other.stockExchange;
+      }
+      if (other.isSetTicker()) {
+        this.ticker = other.ticker;
+      }
+      this.observationCount = other.observationCount;
+    }
+
+    public getExponentialMovingAverage_args deepCopy() {
+      return new getExponentialMovingAverage_args(this);
+    }
+
+    @Override
+    public void clear() {
+      this.stockExchange = null;
+      this.ticker = null;
+      setObservationCountIsSet(false);
+      this.observationCount = 0;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public java.lang.String getStockExchange() {
+      return this.stockExchange;
+    }
+
+    public getExponentialMovingAverage_args setStockExchange(@org.apache.thrift.annotation.Nullable java.lang.String stockExchange) {
+      this.stockExchange = stockExchange;
+      return this;
+    }
+
+    public void unsetStockExchange() {
+      this.stockExchange = null;
+    }
+
+    /** Returns true if field stockExchange is set (has been assigned a value) and false otherwise */
+    public boolean isSetStockExchange() {
+      return this.stockExchange != null;
+    }
+
+    public void setStockExchangeIsSet(boolean value) {
+      if (!value) {
+        this.stockExchange = null;
+      }
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public java.lang.String getTicker() {
+      return this.ticker;
+    }
+
+    public getExponentialMovingAverage_args setTicker(@org.apache.thrift.annotation.Nullable java.lang.String ticker) {
+      this.ticker = ticker;
+      return this;
+    }
+
+    public void unsetTicker() {
+      this.ticker = null;
+    }
+
+    /** Returns true if field ticker is set (has been assigned a value) and false otherwise */
+    public boolean isSetTicker() {
+      return this.ticker != null;
+    }
+
+    public void setTickerIsSet(boolean value) {
+      if (!value) {
+        this.ticker = null;
+      }
+    }
+
+    public long getObservationCount() {
+      return this.observationCount;
+    }
+
+    public getExponentialMovingAverage_args setObservationCount(long observationCount) {
+      this.observationCount = observationCount;
+      setObservationCountIsSet(true);
+      return this;
+    }
+
+    public void unsetObservationCount() {
+      __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __OBSERVATIONCOUNT_ISSET_ID);
+    }
+
+    /** Returns true if field observationCount is set (has been assigned a value) and false otherwise */
+    public boolean isSetObservationCount() {
+      return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __OBSERVATIONCOUNT_ISSET_ID);
+    }
+
+    public void setObservationCountIsSet(boolean value) {
+      __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __OBSERVATIONCOUNT_ISSET_ID, value);
+    }
+
+    public void setFieldValue(_Fields field, @org.apache.thrift.annotation.Nullable java.lang.Object value) {
+      switch (field) {
+      case STOCK_EXCHANGE:
+        if (value == null) {
+          unsetStockExchange();
+        } else {
+          setStockExchange((java.lang.String)value);
+        }
+        break;
+
+      case TICKER:
+        if (value == null) {
+          unsetTicker();
+        } else {
+          setTicker((java.lang.String)value);
+        }
+        break;
+
+      case OBSERVATION_COUNT:
+        if (value == null) {
+          unsetObservationCount();
+        } else {
+          setObservationCount((java.lang.Long)value);
+        }
+        break;
+
+      }
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public java.lang.Object getFieldValue(_Fields field) {
+      switch (field) {
+      case STOCK_EXCHANGE:
+        return getStockExchange();
+
+      case TICKER:
+        return getTicker();
+
+      case OBSERVATION_COUNT:
+        return getObservationCount();
+
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new java.lang.IllegalArgumentException();
+      }
+
+      switch (field) {
+      case STOCK_EXCHANGE:
+        return isSetStockExchange();
+      case TICKER:
+        return isSetTicker();
+      case OBSERVATION_COUNT:
+        return isSetObservationCount();
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(java.lang.Object that) {
+      if (that instanceof getExponentialMovingAverage_args)
+        return this.equals((getExponentialMovingAverage_args)that);
+      return false;
+    }
+
+    public boolean equals(getExponentialMovingAverage_args that) {
+      if (that == null)
+        return false;
+      if (this == that)
+        return true;
+
+      boolean this_present_stockExchange = true && this.isSetStockExchange();
+      boolean that_present_stockExchange = true && that.isSetStockExchange();
+      if (this_present_stockExchange || that_present_stockExchange) {
+        if (!(this_present_stockExchange && that_present_stockExchange))
+          return false;
+        if (!this.stockExchange.equals(that.stockExchange))
+          return false;
+      }
+
+      boolean this_present_ticker = true && this.isSetTicker();
+      boolean that_present_ticker = true && that.isSetTicker();
+      if (this_present_ticker || that_present_ticker) {
+        if (!(this_present_ticker && that_present_ticker))
+          return false;
+        if (!this.ticker.equals(that.ticker))
+          return false;
+      }
+
+      boolean this_present_observationCount = true;
+      boolean that_present_observationCount = true;
+      if (this_present_observationCount || that_present_observationCount) {
+        if (!(this_present_observationCount && that_present_observationCount))
+          return false;
+        if (this.observationCount != that.observationCount)
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      int hashCode = 1;
+
+      hashCode = hashCode * 8191 + ((isSetStockExchange()) ? 131071 : 524287);
+      if (isSetStockExchange())
+        hashCode = hashCode * 8191 + stockExchange.hashCode();
+
+      hashCode = hashCode * 8191 + ((isSetTicker()) ? 131071 : 524287);
+      if (isSetTicker())
+        hashCode = hashCode * 8191 + ticker.hashCode();
+
+      hashCode = hashCode * 8191 + org.apache.thrift.TBaseHelper.hashCode(observationCount);
+
+      return hashCode;
+    }
+
+    @Override
+    public int compareTo(getExponentialMovingAverage_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = java.lang.Boolean.compare(isSetStockExchange(), other.isSetStockExchange());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetStockExchange()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.stockExchange, other.stockExchange);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      lastComparison = java.lang.Boolean.compare(isSetTicker(), other.isSetTicker());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetTicker()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.ticker, other.ticker);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      lastComparison = java.lang.Boolean.compare(isSetObservationCount(), other.isSetObservationCount());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetObservationCount()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.observationCount, other.observationCount);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      scheme(iprot).read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      scheme(oprot).write(oprot, this);
+    }
+
+    @Override
+    public java.lang.String toString() {
+      java.lang.StringBuilder sb = new java.lang.StringBuilder("getExponentialMovingAverage_args(");
+      boolean first = true;
+
+      sb.append("stockExchange:");
+      if (this.stockExchange == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.stockExchange);
+      }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("ticker:");
+      if (this.ticker == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ticker);
+      }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("observationCount:");
+      sb.append(this.observationCount);
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, java.lang.ClassNotFoundException {
+      try {
+        // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
+        __isset_bitfield = 0;
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class getExponentialMovingAverage_argsStandardSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public getExponentialMovingAverage_argsStandardScheme getScheme() {
+        return new getExponentialMovingAverage_argsStandardScheme();
+      }
+    }
+
+    private static class getExponentialMovingAverage_argsStandardScheme extends org.apache.thrift.scheme.StandardScheme<getExponentialMovingAverage_args> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, getExponentialMovingAverage_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 1: // STOCK_EXCHANGE
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+                struct.stockExchange = iprot.readString();
+                struct.setStockExchangeIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            case 2: // TICKER
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+                struct.ticker = iprot.readString();
+                struct.setTickerIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            case 3: // OBSERVATION_COUNT
+              if (schemeField.type == org.apache.thrift.protocol.TType.I64) {
+                struct.observationCount = iprot.readI64();
+                struct.setObservationCountIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, getExponentialMovingAverage_args struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.stockExchange != null) {
+          oprot.writeFieldBegin(STOCK_EXCHANGE_FIELD_DESC);
+          oprot.writeString(struct.stockExchange);
+          oprot.writeFieldEnd();
+        }
+        if (struct.ticker != null) {
+          oprot.writeFieldBegin(TICKER_FIELD_DESC);
+          oprot.writeString(struct.ticker);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldBegin(OBSERVATION_COUNT_FIELD_DESC);
+        oprot.writeI64(struct.observationCount);
+        oprot.writeFieldEnd();
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class getExponentialMovingAverage_argsTupleSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public getExponentialMovingAverage_argsTupleScheme getScheme() {
+        return new getExponentialMovingAverage_argsTupleScheme();
+      }
+    }
+
+    private static class getExponentialMovingAverage_argsTupleScheme extends org.apache.thrift.scheme.TupleScheme<getExponentialMovingAverage_args> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, getExponentialMovingAverage_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol oprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet optionals = new java.util.BitSet();
+        if (struct.isSetStockExchange()) {
+          optionals.set(0);
+        }
+        if (struct.isSetTicker()) {
+          optionals.set(1);
+        }
+        if (struct.isSetObservationCount()) {
+          optionals.set(2);
+        }
+        oprot.writeBitSet(optionals, 3);
+        if (struct.isSetStockExchange()) {
+          oprot.writeString(struct.stockExchange);
+        }
+        if (struct.isSetTicker()) {
+          oprot.writeString(struct.ticker);
+        }
+        if (struct.isSetObservationCount()) {
+          oprot.writeI64(struct.observationCount);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, getExponentialMovingAverage_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet incoming = iprot.readBitSet(3);
+        if (incoming.get(0)) {
+          struct.stockExchange = iprot.readString();
+          struct.setStockExchangeIsSet(true);
+        }
+        if (incoming.get(1)) {
+          struct.ticker = iprot.readString();
+          struct.setTickerIsSet(true);
+        }
+        if (incoming.get(2)) {
+          struct.observationCount = iprot.readI64();
+          struct.setObservationCountIsSet(true);
+        }
+      }
+    }
+
+    private static <S extends org.apache.thrift.scheme.IScheme> S scheme(org.apache.thrift.protocol.TProtocol proto) {
+      return (org.apache.thrift.scheme.StandardScheme.class.equals(proto.getScheme()) ? STANDARD_SCHEME_FACTORY : TUPLE_SCHEME_FACTORY).getScheme();
+    }
+  }
+
+  public static class getExponentialMovingAverage_result implements org.apache.thrift.TBase<getExponentialMovingAverage_result, getExponentialMovingAverage_result._Fields>, java.io.Serializable, Cloneable, Comparable<getExponentialMovingAverage_result>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("getExponentialMovingAverage_result");
+
+    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.STRUCT, (short)0);
+
+    private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new getExponentialMovingAverage_resultStandardSchemeFactory();
+    private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new getExponentialMovingAverage_resultTupleSchemeFactory();
+
+    public @org.apache.thrift.annotation.Nullable Price success; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      SUCCESS((short)0, "success");
+
+      private static final java.util.Map<java.lang.String, _Fields> byName = new java.util.HashMap<java.lang.String, _Fields>();
+
+      static {
+        for (_Fields field : java.util.EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new java.lang.IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByName(java.lang.String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final java.lang.String _fieldName;
+
+      _Fields(short thriftId, java.lang.String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public java.lang.String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, Price.class)));
+      metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(getExponentialMovingAverage_result.class, metaDataMap);
+    }
+
+    public getExponentialMovingAverage_result() {
+    }
+
+    public getExponentialMovingAverage_result(
+      Price success)
+    {
+      this();
+      this.success = success;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public getExponentialMovingAverage_result(getExponentialMovingAverage_result other) {
+      if (other.isSetSuccess()) {
+        this.success = new Price(other.success);
+      }
+    }
+
+    public getExponentialMovingAverage_result deepCopy() {
+      return new getExponentialMovingAverage_result(this);
+    }
+
+    @Override
+    public void clear() {
+      this.success = null;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public Price getSuccess() {
+      return this.success;
+    }
+
+    public getExponentialMovingAverage_result setSuccess(@org.apache.thrift.annotation.Nullable Price success) {
+      this.success = success;
+      return this;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    /** Returns true if field success is set (has been assigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, @org.apache.thrift.annotation.Nullable java.lang.Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((Price)value);
+        }
+        break;
+
+      }
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public java.lang.Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return getSuccess();
+
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new java.lang.IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(java.lang.Object that) {
+      if (that instanceof getExponentialMovingAverage_result)
+        return this.equals((getExponentialMovingAverage_result)that);
+      return false;
+    }
+
+    public boolean equals(getExponentialMovingAverage_result that) {
+      if (that == null)
+        return false;
+      if (this == that)
+        return true;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      int hashCode = 1;
+
+      hashCode = hashCode * 8191 + ((isSetSuccess()) ? 131071 : 524287);
+      if (isSetSuccess())
+        hashCode = hashCode * 8191 + success.hashCode();
+
+      return hashCode;
+    }
+
+    @Override
+    public int compareTo(getExponentialMovingAverage_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = java.lang.Boolean.compare(isSetSuccess(), other.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, other.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      scheme(iprot).read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      scheme(oprot).write(oprot, this);
+      }
+
+    @Override
+    public java.lang.String toString() {
+      java.lang.StringBuilder sb = new java.lang.StringBuilder("getExponentialMovingAverage_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+      if (success != null) {
+        success.validate();
+      }
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, java.lang.ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class getExponentialMovingAverage_resultStandardSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public getExponentialMovingAverage_resultStandardScheme getScheme() {
+        return new getExponentialMovingAverage_resultStandardScheme();
+      }
+    }
+
+    private static class getExponentialMovingAverage_resultStandardScheme extends org.apache.thrift.scheme.StandardScheme<getExponentialMovingAverage_result> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, getExponentialMovingAverage_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 0: // SUCCESS
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.success = new Price();
+                struct.success.read(iprot);
+                struct.setSuccessIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, getExponentialMovingAverage_result struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.success != null) {
+          oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+          struct.success.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class getExponentialMovingAverage_resultTupleSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public getExponentialMovingAverage_resultTupleScheme getScheme() {
+        return new getExponentialMovingAverage_resultTupleScheme();
+      }
+    }
+
+    private static class getExponentialMovingAverage_resultTupleScheme extends org.apache.thrift.scheme.TupleScheme<getExponentialMovingAverage_result> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, getExponentialMovingAverage_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol oprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet optionals = new java.util.BitSet();
+        if (struct.isSetSuccess()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetSuccess()) {
+          struct.success.write(oprot);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, getExponentialMovingAverage_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.success = new Price();
+          struct.success.read(iprot);
+          struct.setSuccessIsSet(true);
+        }
+      }
+    }
+
+    private static <S extends org.apache.thrift.scheme.IScheme> S scheme(org.apache.thrift.protocol.TProtocol proto) {
+      return (org.apache.thrift.scheme.StandardScheme.class.equals(proto.getScheme()) ? STANDARD_SCHEME_FACTORY : TUPLE_SCHEME_FACTORY).getScheme();
+    }
   }
 
 }

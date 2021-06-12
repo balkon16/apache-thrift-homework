@@ -17,9 +17,9 @@ service ExchangeRateService {
     ExchangeRateList getExchangeRatesForWindow(1: string baseCurrency, 2: string quoteCurrency, 3: i64 fromTimestamp, 4: i64 toTimestamp);
     StockExchangeService.StatusMessage addNewRate(1: ExchangeRate newRate);
     StockExchangeService.StatusMessage addBulk(1: ExchangeRateList newRates);
-    //TODO: najnowszy kurs dla pary X/Y
+
     //TODO: kursy dla pary z zadanego okresu
-    //TODO: kurs dla pary -> cross, np. MNT / PLN (z okna czasowego do 1h wstecz/przód)
+
     //TODO: dodaj kurs
     //TODO: dodaj więcej niż jeden kurs
 }

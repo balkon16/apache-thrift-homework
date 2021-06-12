@@ -50,12 +50,12 @@ public class DataInitializer {
         return stockExchanges;
     }
 
-    public static List<ExchangeRate> initializeExchangeRates(){
+    public static List<ExchangeRate> initializeExchangeRates() {
         List<ExchangeRate> exchangeRates = null;
         try {
             JSONArray objectsArray = readJSONFile("ExchangeRateExampleData.json");
             exchangeRates = new ArrayList<ExchangeRate>();
-            for (Object obj: objectsArray){
+            for (Object obj : objectsArray) {
                 JSONObject jsonObject = (JSONObject) obj;
                 exchangeRates.add(new ExchangeRate(
                         (String) jsonObject.get("baseCurrency"),
@@ -63,7 +63,7 @@ public class DataInitializer {
                         (long) jsonObject.get("multiplier"),
                         (double) jsonObject.get("rate"),
                         (long) jsonObject.get("timestamp")
-                        ));
+                ));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,9 +71,25 @@ public class DataInitializer {
         return exchangeRates;
     }
 
-    // TODO: zaimplementować
-    public static List<StockPrice> initializeStockPrice(){
-        return null;
+    public static List<StockPrice> initializeStockPrice() {
+        List<StockPrice> stockPrices = null;
+        try {
+            JSONArray objectsArray = readJSONFile("StockPriceExampleData.json");
+            stockPrices = new ArrayList<StockPrice>();
+            for (Object obj : objectsArray) {
+                JSONObject jsonObject = (JSONObject) obj;
+                stockPrices.add(new StockPrice(
+                        (String) jsonObject.get("ticker"),
+                        (String) jsonObject.get("currency"),
+                        (double) jsonObject.get("price"),
+                        (String) jsonObject.get("stockExchange"),
+                        (long) jsonObject.get("timestamp")
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return stockPrices;
     }
 
 
