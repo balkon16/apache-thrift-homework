@@ -2,6 +2,7 @@ package client;
 
 import edu.pja.sri.hw06.exchangerateservice.ExchangeRate;
 import edu.pja.sri.hw06.exchangerateservice.ExchangeRateService;
+import edu.pja.sri.hw06.stockexchangeservice.Coordinates;
 import edu.pja.sri.hw06.stockexchangeservice.StatusMessage;
 import edu.pja.sri.hw06.stockexchangeservice.StockExchange;
 import edu.pja.sri.hw06.stockexchangeservice.StockExchangeService;
@@ -50,11 +51,23 @@ public class Client {
             System.out.println(stockExchange);
         }
         String selectedStockExchange = "WSE";
-        System.out.println("Data for " + selectedStockExchange + ":");
+        System.out.println(String.format("\nGetting data for: %s", selectedStockExchange));
         StockExchange stockExchange = client.getStockExchangeByShortNameIntl(selectedStockExchange);
         if (!stockExchange.equals(null)) {
             System.out.println(stockExchange);
         }
+
+        StockExchange newStockExchange = new StockExchange("SEB",
+                "Stock Exchange of Barcelona",
+                "BCN",
+                "Passeig de Gràcia, 19, 08007 Barcelona, Spain",
+                new Coordinates(41.3901032678632, 2.1670982844580466));
+        StatusMessage msg1 = client.addStockExchange(newStockExchange);
+        System.out.println(msg1.message);
+        StatusMessage msg2 = client.addStockExchange(newStockExchange);
+        System.out.println(msg2.message);
+        StatusMessage msg3 = client.addStockExchange(newStockExchange);
+        System.out.println(msg3.message);
     }
 
     private static void interactWithExchangeRateService(TProtocol protocol) throws TException {

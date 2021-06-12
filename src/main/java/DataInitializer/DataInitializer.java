@@ -12,7 +12,9 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class DataInitializer {
@@ -27,11 +29,12 @@ public class DataInitializer {
         return (JSONArray) parsedFile;
     }
 
-    public static List<StockExchange> initializeStockExchanges() {
-        List<StockExchange> stockExchanges = null;
+    //TODO: przerobić na Set
+    public static HashSet<StockExchange> initializeStockExchanges() {
+        HashSet<StockExchange> stockExchanges = null;
         try {
             JSONArray objectsArray = readJSONFile("StockExchangeExampleData.json");
-            stockExchanges = new ArrayList<StockExchange>();
+            stockExchanges = new HashSet<>();
             for (Object obj : objectsArray) {
                 JSONObject jsonObject = (JSONObject) obj;
                 JSONObject coordinatesObject = (JSONObject) jsonObject.get("coordinates");
@@ -94,7 +97,7 @@ public class DataInitializer {
 
 
     public static void main(String[] args) {
-        List<StockExchange> stockExchanges = initializeStockExchanges();
+        HashSet<StockExchange> stockExchanges = initializeStockExchanges();
         System.out.println(stockExchanges);
         List<StockExchange> wse = stockExchanges.stream()
                 .filter(e -> e.getShortNameIntl().equals("WSE"))

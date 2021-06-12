@@ -16,6 +16,8 @@ public class StockExchangeService {
 
     public StockExchange getStockExchangeByShortNameIntl(java.lang.String shortNameIntl) throws org.apache.thrift.TException;
 
+    public StatusMessage addStockExchange(StockExchange newStockExchange) throws org.apache.thrift.TException;
+
   }
 
   public interface AsyncIface {
@@ -23,6 +25,8 @@ public class StockExchangeService {
     public void getStockExchanges(org.apache.thrift.async.AsyncMethodCallback<java.util.List<StockExchange>> resultHandler) throws org.apache.thrift.TException;
 
     public void getStockExchangeByShortNameIntl(java.lang.String shortNameIntl, org.apache.thrift.async.AsyncMethodCallback<StockExchange> resultHandler) throws org.apache.thrift.TException;
+
+    public void addStockExchange(StockExchange newStockExchange, org.apache.thrift.async.AsyncMethodCallback<StatusMessage> resultHandler) throws org.apache.thrift.TException;
 
   }
 
@@ -89,6 +93,29 @@ public class StockExchangeService {
         return result.success;
       }
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "getStockExchangeByShortNameIntl failed: unknown result");
+    }
+
+    public StatusMessage addStockExchange(StockExchange newStockExchange) throws org.apache.thrift.TException
+    {
+      send_addStockExchange(newStockExchange);
+      return recv_addStockExchange();
+    }
+
+    public void send_addStockExchange(StockExchange newStockExchange) throws org.apache.thrift.TException
+    {
+      addStockExchange_args args = new addStockExchange_args();
+      args.setNewStockExchange(newStockExchange);
+      sendBase("addStockExchange", args);
+    }
+
+    public StatusMessage recv_addStockExchange() throws org.apache.thrift.TException
+    {
+      addStockExchange_result result = new addStockExchange_result();
+      receiveBase(result, "addStockExchange");
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "addStockExchange failed: unknown result");
     }
 
   }
@@ -170,6 +197,38 @@ public class StockExchangeService {
       }
     }
 
+    public void addStockExchange(StockExchange newStockExchange, org.apache.thrift.async.AsyncMethodCallback<StatusMessage> resultHandler) throws org.apache.thrift.TException {
+      checkReady();
+      addStockExchange_call method_call = new addStockExchange_call(newStockExchange, resultHandler, this, ___protocolFactory, ___transport);
+      this.___currentMethod = method_call;
+      ___manager.call(method_call);
+    }
+
+    public static class addStockExchange_call extends org.apache.thrift.async.TAsyncMethodCall<StatusMessage> {
+      private StockExchange newStockExchange;
+      public addStockExchange_call(StockExchange newStockExchange, org.apache.thrift.async.AsyncMethodCallback<StatusMessage> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.newStockExchange = newStockExchange;
+      }
+
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("addStockExchange", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        addStockExchange_args args = new addStockExchange_args();
+        args.setNewStockExchange(newStockExchange);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public StatusMessage getResult() throws org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+          throw new java.lang.IllegalStateException("Method call not finished!");
+        }
+        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_addStockExchange();
+      }
+    }
+
   }
 
   public static class Processor<I extends Iface> extends org.apache.thrift.TBaseProcessor<I> implements org.apache.thrift.TProcessor {
@@ -185,6 +244,7 @@ public class StockExchangeService {
     private static <I extends Iface> java.util.Map<java.lang.String,  org.apache.thrift.ProcessFunction<I, ? extends org.apache.thrift.TBase>> getProcessMap(java.util.Map<java.lang.String, org.apache.thrift.ProcessFunction<I, ? extends  org.apache.thrift.TBase>> processMap) {
       processMap.put("getStockExchanges", new getStockExchanges());
       processMap.put("getStockExchangeByShortNameIntl", new getStockExchangeByShortNameIntl());
+      processMap.put("addStockExchange", new addStockExchange());
       return processMap;
     }
 
@@ -238,6 +298,31 @@ public class StockExchangeService {
       }
     }
 
+    public static class addStockExchange<I extends Iface> extends org.apache.thrift.ProcessFunction<I, addStockExchange_args> {
+      public addStockExchange() {
+        super("addStockExchange");
+      }
+
+      public addStockExchange_args getEmptyArgsInstance() {
+        return new addStockExchange_args();
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      @Override
+      protected boolean rethrowUnhandledExceptions() {
+        return false;
+      }
+
+      public addStockExchange_result getResult(I iface, addStockExchange_args args) throws org.apache.thrift.TException {
+        addStockExchange_result result = new addStockExchange_result();
+        result.success = iface.addStockExchange(args.newStockExchange);
+        return result;
+      }
+    }
+
   }
 
   public static class AsyncProcessor<I extends AsyncIface> extends org.apache.thrift.TBaseAsyncProcessor<I> {
@@ -253,6 +338,7 @@ public class StockExchangeService {
     private static <I extends AsyncIface> java.util.Map<java.lang.String,  org.apache.thrift.AsyncProcessFunction<I, ? extends  org.apache.thrift.TBase,?>> getProcessMap(java.util.Map<java.lang.String,  org.apache.thrift.AsyncProcessFunction<I, ? extends  org.apache.thrift.TBase, ?>> processMap) {
       processMap.put("getStockExchanges", new getStockExchanges());
       processMap.put("getStockExchangeByShortNameIntl", new getStockExchangeByShortNameIntl());
+      processMap.put("addStockExchange", new addStockExchange());
       return processMap;
     }
 
@@ -375,6 +461,67 @@ public class StockExchangeService {
 
       public void start(I iface, getStockExchangeByShortNameIntl_args args, org.apache.thrift.async.AsyncMethodCallback<StockExchange> resultHandler) throws org.apache.thrift.TException {
         iface.getStockExchangeByShortNameIntl(args.shortNameIntl,resultHandler);
+      }
+    }
+
+    public static class addStockExchange<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, addStockExchange_args, StatusMessage> {
+      public addStockExchange() {
+        super("addStockExchange");
+      }
+
+      public addStockExchange_args getEmptyArgsInstance() {
+        return new addStockExchange_args();
+      }
+
+      public org.apache.thrift.async.AsyncMethodCallback<StatusMessage> getResultHandler(final org.apache.thrift.server.AbstractNonblockingServer.AsyncFrameBuffer fb, final int seqid) {
+        final org.apache.thrift.AsyncProcessFunction fcall = this;
+        return new org.apache.thrift.async.AsyncMethodCallback<StatusMessage>() { 
+          public void onComplete(StatusMessage o) {
+            addStockExchange_result result = new addStockExchange_result();
+            result.success = o;
+            try {
+              fcall.sendResponse(fb, result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
+            } catch (org.apache.thrift.transport.TTransportException e) {
+              _LOGGER.error("TTransportException writing to internal frame buffer", e);
+              fb.close();
+            } catch (java.lang.Exception e) {
+              _LOGGER.error("Exception writing to internal frame buffer", e);
+              onError(e);
+            }
+          }
+          public void onError(java.lang.Exception e) {
+            byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
+            org.apache.thrift.TSerializable msg;
+            addStockExchange_result result = new addStockExchange_result();
+            if (e instanceof org.apache.thrift.transport.TTransportException) {
+              _LOGGER.error("TTransportException inside handler", e);
+              fb.close();
+              return;
+            } else if (e instanceof org.apache.thrift.TApplicationException) {
+              _LOGGER.error("TApplicationException inside handler", e);
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = (org.apache.thrift.TApplicationException)e;
+            } else {
+              _LOGGER.error("Exception inside handler", e);
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
+            }
+            try {
+              fcall.sendResponse(fb,msg,msgType,seqid);
+            } catch (java.lang.Exception ex) {
+              _LOGGER.error("Exception writing to internal frame buffer", ex);
+              fb.close();
+            }
+          }
+        };
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public void start(I iface, addStockExchange_args args, org.apache.thrift.async.AsyncMethodCallback<StatusMessage> resultHandler) throws org.apache.thrift.TException {
+        iface.addStockExchange(args.newStockExchange,resultHandler);
       }
     }
 
@@ -1775,6 +1922,746 @@ public class StockExchangeService {
         java.util.BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
           struct.success = new StockExchange();
+          struct.success.read(iprot);
+          struct.setSuccessIsSet(true);
+        }
+      }
+    }
+
+    private static <S extends org.apache.thrift.scheme.IScheme> S scheme(org.apache.thrift.protocol.TProtocol proto) {
+      return (org.apache.thrift.scheme.StandardScheme.class.equals(proto.getScheme()) ? STANDARD_SCHEME_FACTORY : TUPLE_SCHEME_FACTORY).getScheme();
+    }
+  }
+
+  public static class addStockExchange_args implements org.apache.thrift.TBase<addStockExchange_args, addStockExchange_args._Fields>, java.io.Serializable, Cloneable, Comparable<addStockExchange_args>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("addStockExchange_args");
+
+    private static final org.apache.thrift.protocol.TField NEW_STOCK_EXCHANGE_FIELD_DESC = new org.apache.thrift.protocol.TField("newStockExchange", org.apache.thrift.protocol.TType.STRUCT, (short)1);
+
+    private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new addStockExchange_argsStandardSchemeFactory();
+    private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new addStockExchange_argsTupleSchemeFactory();
+
+    public @org.apache.thrift.annotation.Nullable StockExchange newStockExchange; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      NEW_STOCK_EXCHANGE((short)1, "newStockExchange");
+
+      private static final java.util.Map<java.lang.String, _Fields> byName = new java.util.HashMap<java.lang.String, _Fields>();
+
+      static {
+        for (_Fields field : java.util.EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 1: // NEW_STOCK_EXCHANGE
+            return NEW_STOCK_EXCHANGE;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new java.lang.IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByName(java.lang.String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final java.lang.String _fieldName;
+
+      _Fields(short thriftId, java.lang.String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public java.lang.String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.NEW_STOCK_EXCHANGE, new org.apache.thrift.meta_data.FieldMetaData("newStockExchange", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, StockExchange.class)));
+      metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(addStockExchange_args.class, metaDataMap);
+    }
+
+    public addStockExchange_args() {
+    }
+
+    public addStockExchange_args(
+      StockExchange newStockExchange)
+    {
+      this();
+      this.newStockExchange = newStockExchange;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public addStockExchange_args(addStockExchange_args other) {
+      if (other.isSetNewStockExchange()) {
+        this.newStockExchange = new StockExchange(other.newStockExchange);
+      }
+    }
+
+    public addStockExchange_args deepCopy() {
+      return new addStockExchange_args(this);
+    }
+
+    @Override
+    public void clear() {
+      this.newStockExchange = null;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public StockExchange getNewStockExchange() {
+      return this.newStockExchange;
+    }
+
+    public addStockExchange_args setNewStockExchange(@org.apache.thrift.annotation.Nullable StockExchange newStockExchange) {
+      this.newStockExchange = newStockExchange;
+      return this;
+    }
+
+    public void unsetNewStockExchange() {
+      this.newStockExchange = null;
+    }
+
+    /** Returns true if field newStockExchange is set (has been assigned a value) and false otherwise */
+    public boolean isSetNewStockExchange() {
+      return this.newStockExchange != null;
+    }
+
+    public void setNewStockExchangeIsSet(boolean value) {
+      if (!value) {
+        this.newStockExchange = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, @org.apache.thrift.annotation.Nullable java.lang.Object value) {
+      switch (field) {
+      case NEW_STOCK_EXCHANGE:
+        if (value == null) {
+          unsetNewStockExchange();
+        } else {
+          setNewStockExchange((StockExchange)value);
+        }
+        break;
+
+      }
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public java.lang.Object getFieldValue(_Fields field) {
+      switch (field) {
+      case NEW_STOCK_EXCHANGE:
+        return getNewStockExchange();
+
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new java.lang.IllegalArgumentException();
+      }
+
+      switch (field) {
+      case NEW_STOCK_EXCHANGE:
+        return isSetNewStockExchange();
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(java.lang.Object that) {
+      if (that instanceof addStockExchange_args)
+        return this.equals((addStockExchange_args)that);
+      return false;
+    }
+
+    public boolean equals(addStockExchange_args that) {
+      if (that == null)
+        return false;
+      if (this == that)
+        return true;
+
+      boolean this_present_newStockExchange = true && this.isSetNewStockExchange();
+      boolean that_present_newStockExchange = true && that.isSetNewStockExchange();
+      if (this_present_newStockExchange || that_present_newStockExchange) {
+        if (!(this_present_newStockExchange && that_present_newStockExchange))
+          return false;
+        if (!this.newStockExchange.equals(that.newStockExchange))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      int hashCode = 1;
+
+      hashCode = hashCode * 8191 + ((isSetNewStockExchange()) ? 131071 : 524287);
+      if (isSetNewStockExchange())
+        hashCode = hashCode * 8191 + newStockExchange.hashCode();
+
+      return hashCode;
+    }
+
+    @Override
+    public int compareTo(addStockExchange_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = java.lang.Boolean.compare(isSetNewStockExchange(), other.isSetNewStockExchange());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetNewStockExchange()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.newStockExchange, other.newStockExchange);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      scheme(iprot).read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      scheme(oprot).write(oprot, this);
+    }
+
+    @Override
+    public java.lang.String toString() {
+      java.lang.StringBuilder sb = new java.lang.StringBuilder("addStockExchange_args(");
+      boolean first = true;
+
+      sb.append("newStockExchange:");
+      if (this.newStockExchange == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.newStockExchange);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+      if (newStockExchange != null) {
+        newStockExchange.validate();
+      }
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, java.lang.ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class addStockExchange_argsStandardSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public addStockExchange_argsStandardScheme getScheme() {
+        return new addStockExchange_argsStandardScheme();
+      }
+    }
+
+    private static class addStockExchange_argsStandardScheme extends org.apache.thrift.scheme.StandardScheme<addStockExchange_args> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, addStockExchange_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 1: // NEW_STOCK_EXCHANGE
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.newStockExchange = new StockExchange();
+                struct.newStockExchange.read(iprot);
+                struct.setNewStockExchangeIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, addStockExchange_args struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.newStockExchange != null) {
+          oprot.writeFieldBegin(NEW_STOCK_EXCHANGE_FIELD_DESC);
+          struct.newStockExchange.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class addStockExchange_argsTupleSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public addStockExchange_argsTupleScheme getScheme() {
+        return new addStockExchange_argsTupleScheme();
+      }
+    }
+
+    private static class addStockExchange_argsTupleScheme extends org.apache.thrift.scheme.TupleScheme<addStockExchange_args> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, addStockExchange_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol oprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet optionals = new java.util.BitSet();
+        if (struct.isSetNewStockExchange()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetNewStockExchange()) {
+          struct.newStockExchange.write(oprot);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, addStockExchange_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.newStockExchange = new StockExchange();
+          struct.newStockExchange.read(iprot);
+          struct.setNewStockExchangeIsSet(true);
+        }
+      }
+    }
+
+    private static <S extends org.apache.thrift.scheme.IScheme> S scheme(org.apache.thrift.protocol.TProtocol proto) {
+      return (org.apache.thrift.scheme.StandardScheme.class.equals(proto.getScheme()) ? STANDARD_SCHEME_FACTORY : TUPLE_SCHEME_FACTORY).getScheme();
+    }
+  }
+
+  public static class addStockExchange_result implements org.apache.thrift.TBase<addStockExchange_result, addStockExchange_result._Fields>, java.io.Serializable, Cloneable, Comparable<addStockExchange_result>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("addStockExchange_result");
+
+    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.STRUCT, (short)0);
+
+    private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new addStockExchange_resultStandardSchemeFactory();
+    private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new addStockExchange_resultTupleSchemeFactory();
+
+    public @org.apache.thrift.annotation.Nullable StatusMessage success; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      SUCCESS((short)0, "success");
+
+      private static final java.util.Map<java.lang.String, _Fields> byName = new java.util.HashMap<java.lang.String, _Fields>();
+
+      static {
+        for (_Fields field : java.util.EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new java.lang.IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      @org.apache.thrift.annotation.Nullable
+      public static _Fields findByName(java.lang.String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final java.lang.String _fieldName;
+
+      _Fields(short thriftId, java.lang.String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public java.lang.String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, StatusMessage.class)));
+      metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(addStockExchange_result.class, metaDataMap);
+    }
+
+    public addStockExchange_result() {
+    }
+
+    public addStockExchange_result(
+      StatusMessage success)
+    {
+      this();
+      this.success = success;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public addStockExchange_result(addStockExchange_result other) {
+      if (other.isSetSuccess()) {
+        this.success = new StatusMessage(other.success);
+      }
+    }
+
+    public addStockExchange_result deepCopy() {
+      return new addStockExchange_result(this);
+    }
+
+    @Override
+    public void clear() {
+      this.success = null;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public StatusMessage getSuccess() {
+      return this.success;
+    }
+
+    public addStockExchange_result setSuccess(@org.apache.thrift.annotation.Nullable StatusMessage success) {
+      this.success = success;
+      return this;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    /** Returns true if field success is set (has been assigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, @org.apache.thrift.annotation.Nullable java.lang.Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((StatusMessage)value);
+        }
+        break;
+
+      }
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public java.lang.Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return getSuccess();
+
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new java.lang.IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(java.lang.Object that) {
+      if (that instanceof addStockExchange_result)
+        return this.equals((addStockExchange_result)that);
+      return false;
+    }
+
+    public boolean equals(addStockExchange_result that) {
+      if (that == null)
+        return false;
+      if (this == that)
+        return true;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      int hashCode = 1;
+
+      hashCode = hashCode * 8191 + ((isSetSuccess()) ? 131071 : 524287);
+      if (isSetSuccess())
+        hashCode = hashCode * 8191 + success.hashCode();
+
+      return hashCode;
+    }
+
+    @Override
+    public int compareTo(addStockExchange_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = java.lang.Boolean.compare(isSetSuccess(), other.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, other.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    @org.apache.thrift.annotation.Nullable
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      scheme(iprot).read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      scheme(oprot).write(oprot, this);
+      }
+
+    @Override
+    public java.lang.String toString() {
+      java.lang.StringBuilder sb = new java.lang.StringBuilder("addStockExchange_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+      if (success != null) {
+        success.validate();
+      }
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, java.lang.ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class addStockExchange_resultStandardSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public addStockExchange_resultStandardScheme getScheme() {
+        return new addStockExchange_resultStandardScheme();
+      }
+    }
+
+    private static class addStockExchange_resultStandardScheme extends org.apache.thrift.scheme.StandardScheme<addStockExchange_result> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, addStockExchange_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 0: // SUCCESS
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.success = new StatusMessage();
+                struct.success.read(iprot);
+                struct.setSuccessIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, addStockExchange_result struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.success != null) {
+          oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+          struct.success.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class addStockExchange_resultTupleSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public addStockExchange_resultTupleScheme getScheme() {
+        return new addStockExchange_resultTupleScheme();
+      }
+    }
+
+    private static class addStockExchange_resultTupleScheme extends org.apache.thrift.scheme.TupleScheme<addStockExchange_result> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, addStockExchange_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol oprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet optionals = new java.util.BitSet();
+        if (struct.isSetSuccess()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetSuccess()) {
+          struct.success.write(oprot);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, addStockExchange_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.success = new StatusMessage();
           struct.success.read(iprot);
           struct.setSuccessIsSet(true);
         }

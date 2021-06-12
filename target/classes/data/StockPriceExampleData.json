@@ -1,0 +1,37 @@
+[
+  {
+    "ticker": "CDR",
+    "currency": "PLN",
+    "price": 185.80,
+    "stockExchange": "GPW",
+    "timestamp": 1623423840
+  },
+  {
+    "ticker": "CDR",
+    "currency": "PLN",
+    "price": 170.8,
+    "stockExchange": "GPW",
+    "timestamp": 1623247200
+  },
+  {
+    "ticker": "CDR",
+    "currency": "PLN",
+    "price": 174.12,
+    "stockExchange": "GPW",
+    "timestamp": 1623331800
+  },
+  {
+    "ticker": "RDSA",
+    "currency": "GBX",
+    "price": 1417.20,
+    "stockExchange": "LSE",
+    "timestamp": 1623423600
+  },
+  {
+    "ticker": "RDSA",
+    "currency": "GBX",
+    "price": 1424.00,
+    "stockExchange": "LSE",
+    "timestamp": 1623335400
+  }
+]

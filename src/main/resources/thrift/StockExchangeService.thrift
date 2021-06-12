@@ -23,8 +23,7 @@ typedef list<StockExchange> StockExchangeList
 service StockExchangeService {
     StockExchangeList getStockExchanges();
     StockExchange getStockExchangeByShortNameIntl(1: string shortNameIntl);
-    // TODO: do implementacji
-//    StatusMessage addStockExchange(StockExchange newStockExchange);
+    StatusMessage addStockExchange(1: StockExchange newStockExchange);
 }
 
 
