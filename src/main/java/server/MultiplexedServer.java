@@ -1,7 +1,9 @@
 package server;
 
+import edu.pja.sri.hw06.exchangerateservice.ExchangeRateService;
 import edu.pja.sri.hw06.stockexchangeservice.StockExchangeService;
 import edu.pja.sri.hw06.stockpriceservice.StockPriceService;
+import handlers.ExchangeRateServiceHandler;
 import handlers.StockExchangeServiceHandler;
 import handlers.StockPriceServiceHandler;
 import org.apache.thrift.TMultiplexedProcessor;
@@ -20,10 +22,12 @@ public class MultiplexedServer
             TMultiplexedProcessor processor = new TMultiplexedProcessor();
             TServerTransport t = new TServerSocket(port);
             TServer server = new TThreadPoolServer(new TThreadPoolServer.Args(t).processor(processor));
-            processor.registerProcessor("StockExchangeService", new StockExchangeService.Processor<StockExchangeService.Iface>(new StockExchangeServiceHandler()));
-            processor.registerProcessor("StockPriceService", new StockPriceService.Processor<StockPriceService.Iface>(new StockPriceServiceHandler()));
-//            processor.registerProcessor("MultiplyService", new  MultiplyService.Processor<MultiplyService.Iface>(new MultiplyServiceImpl()));
-//            processor.registerProcessor("UserService", new  UserService.Processor<UserService.Iface>(new UserServiceImpl()));
+            processor.registerProcessor("StockExchangeService",
+                    new StockExchangeService.Processor<StockExchangeService.Iface>(new StockExchangeServiceHandler()));
+            processor.registerProcessor("StockPriceService",
+                    new StockPriceService.Processor<StockPriceService.Iface>(new StockPriceServiceHandler()));
+            processor.registerProcessor("ExchangeRateService",
+                    new ExchangeRateService.Processor<ExchangeRateService.Iface>(new ExchangeRateServiceHandler()));
 
             System.out.println("starting server port:" + port);
             server.serve();
