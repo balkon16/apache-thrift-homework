@@ -19,7 +19,6 @@ public class StockExchangeServiceHandler implements StockExchangeService.Iface {
         return stockExchanges;
     }
 
-    // TODO: użyj Optional<StockExchange>; findFirst, findAny itp.
     @Override
     public StockExchange getStockExchangeByShortNameIntl(String shortNameIntl) throws TException {
         List<StockExchange> filteredStockExchanges = stockExchanges.stream()

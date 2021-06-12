@@ -77,8 +77,8 @@ public class ExchangeRateServiceHandler implements ExchangeRateService.Iface {
             return USDQuote.map(exchangeRate -> new ExchangeRate(baseCurrency,
                     quoteCurrency,
                     (short) 1,
-                    exchangeRate.getRate() * exoticUSD.get().getRate(),
-                    exchangeRate.getTimestamp()))
+                    exchangeRate.getRate() * exoticUSD.get().getRate() / exoticUSD.get().getMultiplier(),
+                    exoticUSD.get().getTimestamp()))
                     .orElse(null);
         }
         return null;

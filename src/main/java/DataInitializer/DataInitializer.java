@@ -20,7 +20,6 @@ public class DataInitializer {
     public DataInitializer() {
     }
 
-    // TODO: metoda do zainicjalizowania StockExchangeService
     private static final String dataDirectory = "src/main/resources/data";
 
     private static JSONArray readJSONFile(String fileName) throws IOException, ParseException {
