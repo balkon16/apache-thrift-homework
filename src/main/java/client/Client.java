@@ -6,9 +6,9 @@ import edu.pja.sri.hw06.stockexchangeservice.Coordinates;
 import edu.pja.sri.hw06.stockexchangeservice.StatusMessage;
 import edu.pja.sri.hw06.stockexchangeservice.StockExchange;
 import edu.pja.sri.hw06.stockexchangeservice.StockExchangeService;
+import edu.pja.sri.hw06.stockpriceservice.Price;
 import edu.pja.sri.hw06.stockpriceservice.StockPrice;
 import edu.pja.sri.hw06.stockpriceservice.StockPriceService;
-import jdk.jshell.Snippet;
 import org.apache.thrift.TApplicationException;
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
@@ -16,10 +16,6 @@ import org.apache.thrift.protocol.TMultiplexedProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
-
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Client {
@@ -31,12 +27,10 @@ public class Client {
             transport.open();
 
             TProtocol protocol = new TBinaryProtocol(transport);
-//            interactWithStockExchangeService(protocol);
-//            interactWithExchangeRateService(protocol);
+            interactWithStockExchangeService(protocol);
+            interactWithExchangeRateService(protocol);
             interactWithStockPriceService(protocol);
 
-            TMultiplexedProtocol mp2 = new TMultiplexedProtocol(protocol, "StockPriceService");
-            StockPriceService.Client stockPriceClient = new StockPriceService.Client(mp2);
             transport.close();
         } catch (TException x) {
             x.printStackTrace();
@@ -49,13 +43,13 @@ public class Client {
         System.out.println("Available stock exchanges:");
         List<StockExchange> stockExchanges = client.getStockExchanges();
         for (StockExchange stockExchange : stockExchanges) {
-            System.out.println(stockExchange);
+            System.out.println(ObjectToStringConverter.getStockExchangeAsString(stockExchange));
         }
         String selectedStockExchange = "WSE";
         System.out.println(String.format("\nGetting data for: %s", selectedStockExchange));
         StockExchange stockExchange = client.getStockExchangeByShortNameIntl(selectedStockExchange);
         if (!stockExchange.equals(null)) {
-            System.out.println(stockExchange);
+            System.out.println(ObjectToStringConverter.getStockExchangeAsString(stockExchange));
         }
 
         StockExchange newStockExchange = new StockExchange("SEB",
@@ -83,7 +77,7 @@ public class Client {
         System.out.println("getExchangeRatesForWindow functionality:");
         for (ExchangeRate exchangeRate : client.getExchangeRatesForWindow("EUR",
                 "PLN", 0, 1622624402)) {
-            System.out.println(getExchangeRateAsString(exchangeRate));
+            System.out.println(ObjectToStringConverter.getExchangeRateAsString(exchangeRate));
         }
         System.out.println("\naddNewRate functionality:");
         StatusMessage sm1 = client.addNewRate(new ExchangeRate("CHF", "PLN", 1, 4.14, 1623402000));
@@ -105,42 +99,55 @@ public class Client {
     }
 
     private static void interactWithStockPriceService(TProtocol protocol) throws TException {
-        //TODO: zaimplementować
         TMultiplexedProtocol mp = new TMultiplexedProtocol(protocol, "StockPriceService");
         StockPriceService.Client client = new StockPriceService.Client(mp);
-//        System.out.println("Get stock price functionality:");
-//        System.out.println(querySingleStockPrice(client, "WSE", "CDR"));
-//        System.out.println(querySingleStockPrice(client, "NYSE", "AAPL"));
+        System.out.println("Get stock price functionality:");
+        System.out.println(querySingleStockPrice(client, "WSE", "CDR"));
+        System.out.println(querySingleStockPrice(client, "NYSE", "AAPL"));
 
-//        System.out.println("\nAdd stock price functionality:");
-//        StatusMessage msg = client.addNewQuotation(new StockPrice(
-//                "CCC", "PLN", 118.51, "WSE", 1623416715
-//        ));
-//        System.out.println(msg.message);
+        System.out.println("\nAdd stock price functionality:");
+        StatusMessage msg = client.addNewQuotation(new StockPrice(
+                "CCC", "PLN", 118.51, "WSE", 1623416715
+        ));
+        System.out.println(msg.message);
 
-        // TODO: dodać przykład z
-        //From 1623157515
-        //To   1623416715
-//        System.out.println();
+        long fromTimestamp1 = 1623157515;
+        long toTimestamp1 = 1623416715;
+        String ticker1 = "RDSA";
+        String stockExchange1 = "LSE";
+        System.out.printf("\nGetting max price for %s from %s to %s%n",
+                ticker1,
+                ObjectToStringConverter.convertTimestampToDateTimeString(fromTimestamp1),
+                ObjectToStringConverter.convertTimestampToDateTimeString(toTimestamp1)
+                );
+        System.out.println(
+                ObjectToStringConverter.getPriceAsString(
+                        client.getMaxByWindow(stockExchange1, ticker1, fromTimestamp1, toTimestamp1)));
+
+        long fromTimestamp2 = 1623157515;
+        long toTimestamp2 = 1623416715;
+        String ticker2 = "PLC";
+        String stockExchange2 = "LSE";
+        System.out.printf("Getting max price for %s from %s to %s%n",
+                ticker2,
+                ObjectToStringConverter.convertTimestampToDateTimeString(fromTimestamp2),
+                ObjectToStringConverter.convertTimestampToDateTimeString(toTimestamp2)
+        );
+        System.out.println(
+                ObjectToStringConverter.getPriceAsString(
+                        client.getMaxByWindow(stockExchange2, ticker2, fromTimestamp2, toTimestamp2)));
+
+
+        System.out.println("\nGetting exponential moving average:");
+        Price CDRThreeObsPrice = client.getExponentialMovingAverage("WSE", "CDR", 3);
+        System.out.println(ObjectToStringConverter.getPriceAsString(CDRThreeObsPrice));
 
     }
 
-    protected static String getExchangeRateAsString(ExchangeRate er) {
-        //TODO: logika związana z datą do oddzielnej metody
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime dt = LocalDateTime.ofEpochSecond(er.getTimestamp(), 0, ZoneOffset.UTC);
-
-        return String.format("Exchange rate 1 %s is:\n\t%f %s\n\t@ %s",
-                er.getBaseCurrency(),
-                er.getRate() / er.getMultiplier(),
-                er.getQuoteCurrency(),
-                dt.format(dateTimeFormatter));
-    }
-
-    protected static String querySingleExchangeRate(ExchangeRateService.Client client, String baseCurrency, String quoteCurrency, boolean allowCross) {
+    private static String querySingleExchangeRate(ExchangeRateService.Client client, String baseCurrency, String quoteCurrency, boolean allowCross) {
         try {
             ExchangeRate er = client.getLatestExchangeRate(baseCurrency, quoteCurrency, allowCross);
-            return getExchangeRateAsString(er);
+            return ObjectToStringConverter.getExchangeRateAsString(er);
 
         } catch (TApplicationException e) {
             return String.format("Exchange rate %s/%s (cross allowed: %b) not found", baseCurrency, quoteCurrency, allowCross);
@@ -150,11 +157,10 @@ public class Client {
         }
     }
 
-    // TODO: metoda powinna przyjmować również granice okna i różne szablony wiadomości
-    protected static String querySingleStockPrice(StockPriceService.Client client, String stockExchange, String ticker){
+    private static String querySingleStockPrice(StockPriceService.Client client, String stockExchange, String ticker){
         try {
             StockPrice sp = client.getLatestQuotation(stockExchange, ticker);
-            return sp.toString(); //TODO: użyć getStockPriceAsString
+            return ObjectToStringConverter.getStockPriceAsString(sp);
         } catch (TApplicationException e) {
             return String.format("Stock price %s @ %s not found", ticker, stockExchange);
         } catch (TException e) {
@@ -162,7 +168,4 @@ public class Client {
             return String.format("Stock price %s @ %s not found", ticker, stockExchange);
         }
     }
-
-    // TODO: obsługa StockPrice na wzór getExchangeRateStringify
-
 }

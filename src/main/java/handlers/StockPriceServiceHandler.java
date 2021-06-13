@@ -10,6 +10,7 @@ import org.apache.thrift.TException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class StockPriceServiceHandler implements StockPriceService.Iface {
 
@@ -33,7 +34,6 @@ public class StockPriceServiceHandler implements StockPriceService.Iface {
                 String.format("%s@%f %s added successfully.", newStockPrice.getTicker(), newStockPrice.getPrice(), newStockPrice.getCurrency()));
     }
 
-    //TODO: implementacja
     @Override
     public Price getMaxByWindow(String stockExchange, String ticker, long fromTimestamp, long toTimestamp) throws TException {
         Optional<StockPrice> optionalStockPriceMax = stockPrices.stream()
@@ -41,15 +41,32 @@ public class StockPriceServiceHandler implements StockPriceService.Iface {
                 .filter(s -> s.getTicker().equals(ticker))
                 .filter(s -> s.getTimestamp() <= toTimestamp & s.getTimestamp() >= fromTimestamp)
                 .max(Comparator.comparingDouble(StockPrice::getPrice));
-        // TODO: przerobić tak, żeby zwracany był obiekt Price
-        return null;
-//        return optionalStockPriceMax.orElse(null);
+        return optionalStockPriceMax
+                .map(stockPrice -> new Price(stockPrice.getPrice(), stockPrice.getCurrency()))
+                .orElseGet(() -> new Price(-1.0, ""));
     }
 
-
-    //TODO: implementacja -> https://pl.wikipedia.org/wiki/%C5%9Arednia_ruchoma
     @Override
-    public Price getExponentialMovingAverage(String stockExchange, String ticker, long observationCount) throws TException {
-        return null;
+    public Price getExponentialMovingAverage(String stockExchange, String ticker, int observationCount) throws TException {
+        List<StockPrice> filteredStockPrices = stockPrices.stream()
+                .filter(s -> s.getTicker().equals(ticker))
+                .filter(s -> s.getStockExchangeShortNameIntl().equals(stockExchange))
+                .sorted(Comparator.comparingLong(StockPrice::getTimestamp).reversed())
+                .limit(observationCount)
+                .collect(Collectors.toList());
+        if (filteredStockPrices.isEmpty()) {
+            return new Price(-1.0, "");
+        }
+
+        double alpha = (2.0 / (filteredStockPrices.size() + 1.0));
+        double numerator = 0.0;
+        double denominator = 0.0;
+        for (int i = 0; i < filteredStockPrices.size(); i++) {
+            double weight = Math.pow(1 - alpha, i);
+            numerator += weight*filteredStockPrices.get(i).getPrice();
+            denominator += weight;
+        }
+
+        return new Price(numerator / denominator, filteredStockPrices.stream().findFirst().get().getCurrency());
     }
 }

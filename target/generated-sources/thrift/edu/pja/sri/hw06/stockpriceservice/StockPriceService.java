@@ -18,7 +18,7 @@ public class StockPriceService {
 
     public Price getMaxByWindow(java.lang.String stockExchange, java.lang.String ticker, long fromTimestamp, long toTimestamp) throws org.apache.thrift.TException;
 
-    public Price getExponentialMovingAverage(java.lang.String stockExchange, java.lang.String ticker, long observationCount) throws org.apache.thrift.TException;
+    public Price getExponentialMovingAverage(java.lang.String stockExchange, java.lang.String ticker, int observationCount) throws org.apache.thrift.TException;
 
   }
 
@@ -30,7 +30,7 @@ public class StockPriceService {
 
     public void getMaxByWindow(java.lang.String stockExchange, java.lang.String ticker, long fromTimestamp, long toTimestamp, org.apache.thrift.async.AsyncMethodCallback<Price> resultHandler) throws org.apache.thrift.TException;
 
-    public void getExponentialMovingAverage(java.lang.String stockExchange, java.lang.String ticker, long observationCount, org.apache.thrift.async.AsyncMethodCallback<Price> resultHandler) throws org.apache.thrift.TException;
+    public void getExponentialMovingAverage(java.lang.String stockExchange, java.lang.String ticker, int observationCount, org.apache.thrift.async.AsyncMethodCallback<Price> resultHandler) throws org.apache.thrift.TException;
 
   }
 
@@ -127,13 +127,13 @@ public class StockPriceService {
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "getMaxByWindow failed: unknown result");
     }
 
-    public Price getExponentialMovingAverage(java.lang.String stockExchange, java.lang.String ticker, long observationCount) throws org.apache.thrift.TException
+    public Price getExponentialMovingAverage(java.lang.String stockExchange, java.lang.String ticker, int observationCount) throws org.apache.thrift.TException
     {
       send_getExponentialMovingAverage(stockExchange, ticker, observationCount);
       return recv_getExponentialMovingAverage();
     }
 
-    public void send_getExponentialMovingAverage(java.lang.String stockExchange, java.lang.String ticker, long observationCount) throws org.apache.thrift.TException
+    public void send_getExponentialMovingAverage(java.lang.String stockExchange, java.lang.String ticker, int observationCount) throws org.apache.thrift.TException
     {
       getExponentialMovingAverage_args args = new getExponentialMovingAverage_args();
       args.setStockExchange(stockExchange);
@@ -278,7 +278,7 @@ public class StockPriceService {
       }
     }
 
-    public void getExponentialMovingAverage(java.lang.String stockExchange, java.lang.String ticker, long observationCount, org.apache.thrift.async.AsyncMethodCallback<Price> resultHandler) throws org.apache.thrift.TException {
+    public void getExponentialMovingAverage(java.lang.String stockExchange, java.lang.String ticker, int observationCount, org.apache.thrift.async.AsyncMethodCallback<Price> resultHandler) throws org.apache.thrift.TException {
       checkReady();
       getExponentialMovingAverage_call method_call = new getExponentialMovingAverage_call(stockExchange, ticker, observationCount, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
@@ -288,8 +288,8 @@ public class StockPriceService {
     public static class getExponentialMovingAverage_call extends org.apache.thrift.async.TAsyncMethodCall<Price> {
       private java.lang.String stockExchange;
       private java.lang.String ticker;
-      private long observationCount;
-      public getExponentialMovingAverage_call(java.lang.String stockExchange, java.lang.String ticker, long observationCount, org.apache.thrift.async.AsyncMethodCallback<Price> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      private int observationCount;
+      public getExponentialMovingAverage_call(java.lang.String stockExchange, java.lang.String ticker, int observationCount, org.apache.thrift.async.AsyncMethodCallback<Price> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
         this.stockExchange = stockExchange;
         this.ticker = ticker;
@@ -3323,14 +3323,14 @@ public class StockPriceService {
 
     private static final org.apache.thrift.protocol.TField STOCK_EXCHANGE_FIELD_DESC = new org.apache.thrift.protocol.TField("stockExchange", org.apache.thrift.protocol.TType.STRING, (short)1);
     private static final org.apache.thrift.protocol.TField TICKER_FIELD_DESC = new org.apache.thrift.protocol.TField("ticker", org.apache.thrift.protocol.TType.STRING, (short)2);
-    private static final org.apache.thrift.protocol.TField OBSERVATION_COUNT_FIELD_DESC = new org.apache.thrift.protocol.TField("observationCount", org.apache.thrift.protocol.TType.I64, (short)3);
+    private static final org.apache.thrift.protocol.TField OBSERVATION_COUNT_FIELD_DESC = new org.apache.thrift.protocol.TField("observationCount", org.apache.thrift.protocol.TType.I32, (short)3);
 
     private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new getExponentialMovingAverage_argsStandardSchemeFactory();
     private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new getExponentialMovingAverage_argsTupleSchemeFactory();
 
     public @org.apache.thrift.annotation.Nullable java.lang.String stockExchange; // required
     public @org.apache.thrift.annotation.Nullable java.lang.String ticker; // required
-    public long observationCount; // required
+    public int observationCount; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
@@ -3409,7 +3409,7 @@ public class StockPriceService {
       tmpMap.put(_Fields.TICKER, new org.apache.thrift.meta_data.FieldMetaData("ticker", org.apache.thrift.TFieldRequirementType.DEFAULT, 
           new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
       tmpMap.put(_Fields.OBSERVATION_COUNT, new org.apache.thrift.meta_data.FieldMetaData("observationCount", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I64)));
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
       metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
       org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(getExponentialMovingAverage_args.class, metaDataMap);
     }
@@ -3420,7 +3420,7 @@ public class StockPriceService {
     public getExponentialMovingAverage_args(
       java.lang.String stockExchange,
       java.lang.String ticker,
-      long observationCount)
+      int observationCount)
     {
       this();
       this.stockExchange = stockExchange;
@@ -3505,11 +3505,11 @@ public class StockPriceService {
       }
     }
 
-    public long getObservationCount() {
+    public int getObservationCount() {
       return this.observationCount;
     }
 
-    public getExponentialMovingAverage_args setObservationCount(long observationCount) {
+    public getExponentialMovingAverage_args setObservationCount(int observationCount) {
       this.observationCount = observationCount;
       setObservationCountIsSet(true);
       return this;
@@ -3550,7 +3550,7 @@ public class StockPriceService {
         if (value == null) {
           unsetObservationCount();
         } else {
-          setObservationCount((java.lang.Long)value);
+          setObservationCount((java.lang.Integer)value);
         }
         break;
 
@@ -3645,7 +3645,7 @@ public class StockPriceService {
       if (isSetTicker())
         hashCode = hashCode * 8191 + ticker.hashCode();
 
-      hashCode = hashCode * 8191 + org.apache.thrift.TBaseHelper.hashCode(observationCount);
+      hashCode = hashCode * 8191 + observationCount;
 
       return hashCode;
     }
@@ -3790,8 +3790,8 @@ public class StockPriceService {
               }
               break;
             case 3: // OBSERVATION_COUNT
-              if (schemeField.type == org.apache.thrift.protocol.TType.I64) {
-                struct.observationCount = iprot.readI64();
+              if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+                struct.observationCount = iprot.readI32();
                 struct.setObservationCountIsSet(true);
               } else { 
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
@@ -3823,7 +3823,7 @@ public class StockPriceService {
           oprot.writeFieldEnd();
         }
         oprot.writeFieldBegin(OBSERVATION_COUNT_FIELD_DESC);
-        oprot.writeI64(struct.observationCount);
+        oprot.writeI32(struct.observationCount);
         oprot.writeFieldEnd();
         oprot.writeFieldStop();
         oprot.writeStructEnd();
@@ -3860,7 +3860,7 @@ public class StockPriceService {
           oprot.writeString(struct.ticker);
         }
         if (struct.isSetObservationCount()) {
-          oprot.writeI64(struct.observationCount);
+          oprot.writeI32(struct.observationCount);
         }
       }
 
@@ -3877,7 +3877,7 @@ public class StockPriceService {
           struct.setTickerIsSet(true);
         }
         if (incoming.get(2)) {
-          struct.observationCount = iprot.readI64();
+          struct.observationCount = iprot.readI32();
           struct.setObservationCountIsSet(true);
         }
       }

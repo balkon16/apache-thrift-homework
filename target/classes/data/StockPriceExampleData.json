@@ -3,21 +3,21 @@
     "ticker": "CDR",
     "currency": "PLN",
     "price": 185.80,
-    "stockExchange": "GPW",
+    "stockExchange": "WSE",
     "timestamp": 1623423840
   },
   {
     "ticker": "CDR",
     "currency": "PLN",
     "price": 170.8,
-    "stockExchange": "GPW",
+    "stockExchange": "WSE",
     "timestamp": 1623247200
   },
   {
     "ticker": "CDR",
     "currency": "PLN",
     "price": 174.12,
-    "stockExchange": "GPW",
+    "stockExchange": "WSE",
     "timestamp": 1623331800
   },
   {

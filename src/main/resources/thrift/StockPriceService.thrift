@@ -19,5 +19,5 @@ service StockPriceService {
     StockPrice getLatestQuotation(1: string stockExchange, 2: string ticker);
     StockExchangeService.StatusMessage addNewQuotation(1: StockPrice newStockPrice);
     Price getMaxByWindow(1: string stockExchange, 2: string ticker, 3: i64 fromTimestamp, 4: i64 toTimestamp);
-    Price getExponentialMovingAverage(1: string stockExchange, 2: string ticker, 3: i64 observationCount);
+    Price getExponentialMovingAverage(1: string stockExchange, 2: string ticker, 3: i32 observationCount);
 }
