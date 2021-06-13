@@ -6,7 +6,9 @@ import edu.pja.sri.hw06.stockexchangeservice.Coordinates;
 import edu.pja.sri.hw06.stockexchangeservice.StatusMessage;
 import edu.pja.sri.hw06.stockexchangeservice.StockExchange;
 import edu.pja.sri.hw06.stockexchangeservice.StockExchangeService;
+import edu.pja.sri.hw06.stockpriceservice.StockPrice;
 import edu.pja.sri.hw06.stockpriceservice.StockPriceService;
+import jdk.jshell.Snippet;
 import org.apache.thrift.TApplicationException;
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
@@ -15,8 +17,6 @@ import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -31,8 +31,9 @@ public class Client {
             transport.open();
 
             TProtocol protocol = new TBinaryProtocol(transport);
-            interactWithStockExchangeService(protocol);
-            interactWithExchangeRateService(protocol);
+//            interactWithStockExchangeService(protocol);
+//            interactWithExchangeRateService(protocol);
+            interactWithStockPriceService(protocol);
 
             TMultiplexedProtocol mp2 = new TMultiplexedProtocol(protocol, "StockPriceService");
             StockPriceService.Client stockPriceClient = new StockPriceService.Client(mp2);
@@ -82,7 +83,7 @@ public class Client {
         System.out.println("getExchangeRatesForWindow functionality:");
         for (ExchangeRate exchangeRate : client.getExchangeRatesForWindow("EUR",
                 "PLN", 0, 1622624402)) {
-            System.out.println(getExchangeRateStringify(exchangeRate));
+            System.out.println(getExchangeRateAsString(exchangeRate));
         }
         System.out.println("\naddNewRate functionality:");
         StatusMessage sm1 = client.addNewRate(new ExchangeRate("CHF", "PLN", 1, 4.14, 1623402000));
@@ -105,9 +106,27 @@ public class Client {
 
     private static void interactWithStockPriceService(TProtocol protocol) throws TException {
         //TODO: zaimplementować
+        TMultiplexedProtocol mp = new TMultiplexedProtocol(protocol, "StockPriceService");
+        StockPriceService.Client client = new StockPriceService.Client(mp);
+//        System.out.println("Get stock price functionality:");
+//        System.out.println(querySingleStockPrice(client, "WSE", "CDR"));
+//        System.out.println(querySingleStockPrice(client, "NYSE", "AAPL"));
+
+//        System.out.println("\nAdd stock price functionality:");
+//        StatusMessage msg = client.addNewQuotation(new StockPrice(
+//                "CCC", "PLN", 118.51, "WSE", 1623416715
+//        ));
+//        System.out.println(msg.message);
+
+        // TODO: dodać przykład z
+        //From 1623157515
+        //To   1623416715
+//        System.out.println();
+
     }
 
-    protected static String getExchangeRateStringify(ExchangeRate er) {
+    protected static String getExchangeRateAsString(ExchangeRate er) {
+        //TODO: logika związana z datą do oddzielnej metody
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime dt = LocalDateTime.ofEpochSecond(er.getTimestamp(), 0, ZoneOffset.UTC);
 
@@ -121,7 +140,7 @@ public class Client {
     protected static String querySingleExchangeRate(ExchangeRateService.Client client, String baseCurrency, String quoteCurrency, boolean allowCross) {
         try {
             ExchangeRate er = client.getLatestExchangeRate(baseCurrency, quoteCurrency, allowCross);
-            return getExchangeRateStringify(er);
+            return getExchangeRateAsString(er);
 
         } catch (TApplicationException e) {
             return String.format("Exchange rate %s/%s (cross allowed: %b) not found", baseCurrency, quoteCurrency, allowCross);
@@ -131,5 +150,19 @@ public class Client {
         }
     }
 
-//    protected
+    // TODO: metoda powinna przyjmować również granice okna i różne szablony wiadomości
+    protected static String querySingleStockPrice(StockPriceService.Client client, String stockExchange, String ticker){
+        try {
+            StockPrice sp = client.getLatestQuotation(stockExchange, ticker);
+            return sp.toString(); //TODO: użyć getStockPriceAsString
+        } catch (TApplicationException e) {
+            return String.format("Stock price %s @ %s not found", ticker, stockExchange);
+        } catch (TException e) {
+            e.printStackTrace();
+            return String.format("Stock price %s @ %s not found", ticker, stockExchange);
+        }
+    }
+
+    // TODO: obsługa StockPrice na wzór getExchangeRateStringify
+
 }

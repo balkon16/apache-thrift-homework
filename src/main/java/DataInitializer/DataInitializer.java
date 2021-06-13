@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class DataInitializer {
@@ -29,7 +28,6 @@ public class DataInitializer {
         return (JSONArray) parsedFile;
     }
 
-    //TODO: przerobić na Set
     public static HashSet<StockExchange> initializeStockExchanges() {
         HashSet<StockExchange> stockExchanges = null;
         try {
@@ -57,7 +55,7 @@ public class DataInitializer {
         List<ExchangeRate> exchangeRates = null;
         try {
             JSONArray objectsArray = readJSONFile("ExchangeRateExampleData.json");
-            exchangeRates = new ArrayList<ExchangeRate>();
+            exchangeRates = new ArrayList<>();
             for (Object obj : objectsArray) {
                 JSONObject jsonObject = (JSONObject) obj;
                 exchangeRates.add(new ExchangeRate(
@@ -78,7 +76,7 @@ public class DataInitializer {
         List<StockPrice> stockPrices = null;
         try {
             JSONArray objectsArray = readJSONFile("StockPriceExampleData.json");
-            stockPrices = new ArrayList<StockPrice>();
+            stockPrices = new ArrayList<>();
             for (Object obj : objectsArray) {
                 JSONObject jsonObject = (JSONObject) obj;
                 stockPrices.add(new StockPrice(

@@ -17,8 +17,7 @@ struct Price {
 
 service StockPriceService {
     StockPrice getLatestQuotation(1: string stockExchange, 2: string ticker);
-    StockExchangeService.StatusMessage updateQuotation(1: StockPrice newStockPrice);
     StockExchangeService.StatusMessage addNewQuotation(1: StockPrice newStockPrice);
-    StockPrice getMaxByWindow(1: i64 fromTimestamp, 2: i64 toTimestamp);
+    Price getMaxByWindow(1: string stockExchange, 2: string ticker, 3: i64 fromTimestamp, 4: i64 toTimestamp);
     Price getExponentialMovingAverage(1: string stockExchange, 2: string ticker, 3: i64 observationCount);
 }
